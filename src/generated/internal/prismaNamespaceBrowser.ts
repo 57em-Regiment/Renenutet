@@ -102,7 +102,6 @@ export type Ref_locationScalarFieldEnum = (typeof Ref_locationScalarFieldEnum)[k
 
 
 export const StockScalarFieldEnum = {
-  id: 'id',
   quantity: 'quantity',
   itemId: 'itemId',
   inventoryId: 'inventoryId',

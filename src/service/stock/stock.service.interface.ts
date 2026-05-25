@@ -6,27 +6,21 @@ export interface IStockService {
   /** Retourne tous les stocks. */
   getAll(): Promise<Stock[]>;
 
-  /**
-   * Retourne un stock par son identifiant.
-   * @throws {AppError} 404 si le stock est introuvable.
-   */
-  getById(id: string): Promise<Stock>;
-
   /** Retourne tous les stocks d'un inventaire donné. */
-  getByInventory(inventoryId: string): Promise<Stock[] | null>;
+  getByInventory(inventoryId: string): Promise<Stock[]>;
 
   /** Retourne tous les stocks pour un item donné. */
-  getByItem(itemId: string): Promise<Stock[] | null>;
+  getByItem(itemId: string): Promise<Stock[]>;
 
   /**
-   * Retourne le stock précis d'un item dans un inventaire.
+   * Retourne le stock précis d'un item dans un inventaire via la clé composite.
    * @throws {AppError} 404 si le stock est introuvable.
    */
-  getStock(inventoryId: string, itemId: string): Promise<Stock | null>;
+  getByKey(itemId: string, inventoryId: string): Promise<Stock>;
 
   /**
-   * Met à jour la quantité (ou les champs) d'un stock.
+   * Met à jour le stock d'un item dans un inventaire.
    * @throws {AppError} 404 si le stock est introuvable.
    */
-  update(id: string, data: UpdateStock): Promise<Stock>;
+  update(itemId: string, inventoryId: string, data: UpdateStock): Promise<Stock>;
 }

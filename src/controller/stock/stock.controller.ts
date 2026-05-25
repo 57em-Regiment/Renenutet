@@ -1,10 +1,10 @@
-import { inject, injectable } from "tsyringe";
 import { IStockService } from "@/service/stock/stock.service.interface";
-import { FastifyReply, FastifyRequest } from "fastify";
 import {
   StockParams,
   UpdateStock,
 } from "@57em-regiment/renenutet-api-contract/schemas/stock.schema";
+import { FastifyReply, FastifyRequest } from "fastify";
+import { inject, injectable } from "tsyringe";
 
 /** Contrôleur HTTP pour les opérations de lecture et mise à jour des stocks. */
 @injectable()
@@ -15,61 +15,49 @@ export class StockController {
 
   /** Retourne la liste complète des stocks. */
   async getAll(_req: FastifyRequest, reply: FastifyReply) {
-    const stocks = this.stockService.getAll();
+    const stocks = await this.stockService.getAll();
+    return reply.send(stocks);
+  }
+
+  /** Retourne tous les stocks appartenant à un inventaire. */
+  async getByInventory(
+    req: FastifyRequest<{ Params: { inventoryId: string } }>,
+    reply: FastifyReply,
+  ) {
+    const stocks = await this.stockService.getByInventory(req.params.inventoryId);
+    return reply.send(stocks);
+  }
+
+  /** Retourne tous les stocks associés à un item. */
+  async getByItem(
+    req: FastifyRequest<{ Params: { itemId: string } }>,
+    reply: FastifyReply,
+  ) {
+    const stocks = await this.stockService.getByItem(req.params.itemId);
     return reply.send(stocks);
   }
 
   /**
-   * Retourne un stock par son identifiant.
+   * Retourne le stock d'un item précis dans un inventaire (clé composite).
    * @throws {AppError} 404 si le stock est introuvable.
    */
-  async getById(
+  async getByKey(
     req: FastifyRequest<{ Params: StockParams }>,
     reply: FastifyReply,
   ) {
-    const stock = this.stockService.getById(req.params.id);
-    return reply.send(stock);
-  }
-
-  /** Retourne tous les stocks appartenant à un inventaire. */
-  async getByItem(
-    req: FastifyRequest<{ Params: StockParams }>,
-    reply: FastifyReply,
-  ) {
-    const stock = this.stockService.getByItem(req.params.itemId);
-    return reply.send(stock);
-  }
-
-  /** Retourne tous les stocks associés à un item. */
-  async getByInventory(
-    req: FastifyRequest<{ Params: StockParams }>,
-    reply: FastifyReply,
-  ) {
-    const stock = this.stockService.getByInventory(req.params.inventoryId);
+    const stock = await this.stockService.getByKey(req.params.itemId, req.params.inventoryId);
     return reply.send(stock);
   }
 
   /**
-   * Retourne le stock d'un item précis dans un inventaire.
-   * @throws {AppError} 404 si le stock est introuvable.
-   */
-  async getStock(
-    req: FastifyRequest<{ Params: StockParams }>,
-    reply: FastifyReply,
-  ) {
-    const stock = this.stockService.getStock(req.params.inventoryId, req.params.itemId);
-    return reply.send(stock);
-  }
-
-  /**
-   * Met à jour la quantité (ou les champs) d'un stock existant.
+   * Met à jour le stock d'un item dans un inventaire.
    * @throws {AppError} 404 si le stock est introuvable.
    */
   async update(
     req: FastifyRequest<{ Params: StockParams; Body: UpdateStock }>,
     reply: FastifyReply,
   ) {
-    const stock = await this.stockService.update(req.params.id, req.body);
+    const stock = await this.stockService.update(req.params.itemId, req.params.inventoryId, req.body);
     return reply.send(stock);
   }
 }

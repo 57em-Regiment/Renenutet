@@ -1,26 +1,29 @@
 import { z } from "zod";
 
 export const stockSchema = z.object({
-  id: z.uuid(),
-  quantity: z.number().int().positive().default(0),
+  quantity: z.number().int(),
   itemId: z.uuid(),
   inventoryId: z.uuid(),
-});
-export const createStockSchema = z.object({
-  quantity: z.number().int().default(0),
-  itemId: z.uuid(),
-  inventoryId: z.uuid(),
+  updatedAt: z.coerce.date(),
 });
 
-export const updateStockSchema = createStockSchema.partial();
+export const updateStockSchema = z.object({
+  quantity: z.number().int().optional(),
+});
 
 export const stockParamSchema = z.object({
-  id: z.uuid(),
   itemId: z.uuid(),
   inventoryId: z.uuid(),
+});
+
+export const stockInventoryParamSchema = z.object({
+  inventoryId: z.uuid(),
+});
+
+export const stockItemParamSchema = z.object({
+  itemId: z.uuid(),
 });
 
 export type StockSchema = z.infer<typeof stockSchema>;
-export type CreateStock = z.infer<typeof createStockSchema>;
 export type UpdateStock = z.infer<typeof updateStockSchema>;
 export type StockParams = z.infer<typeof stockParamSchema>;
