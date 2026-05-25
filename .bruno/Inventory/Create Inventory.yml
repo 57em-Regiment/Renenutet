@@ -1,0 +1,24 @@
+info:
+  name: Create Inventory
+  type: http
+  seq: 3
+
+http:
+  method: POST
+  url: "{{BaseUrl}}/api/inventories"
+  body:
+    type: json
+    data: |-
+      {
+              "name": "Main Warehouse",
+              "accessCode": "SECURE123",
+              "locationId": "00000000-0000-0000-0000-000000000001",
+              "ownerId": "00000000-0000-0000-0000-000000000002"
+            }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

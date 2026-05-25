@@ -1,0 +1,14 @@
+model Stock {
+  id       String @id @default(uuid())
+  quantity Int    @default(0)
+
+  itemId      String
+  item        ref_item? @relation(fields: [itemId], references: [id])
+
+  inventoryId String
+  inventory   Inventory @relation(fields: [inventoryId], references: [id])
+
+  updatedAt DateTime @updatedAt
+
+  @@unique([itemId, inventoryId])
+}

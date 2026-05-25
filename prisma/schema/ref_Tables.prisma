@@ -1,0 +1,14 @@
+model ref_item {
+  id       String @id @unique
+  stock    Stock[]
+  transaction    Transaction[]
+  @@map("ref_item")
+}
+
+model ref_location {
+  id          String      @id @unique
+  inventories Inventory[]
+
+  @@map("ref_location")
+}
+

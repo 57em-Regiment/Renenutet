@@ -1,0 +1,17 @@
+model Inventory {
+  id         String  @id @default(uuid())
+  name       String
+  accessCode String?
+
+  locationId String
+  location   ref_location? @relation(fields: [locationId], references: [id])
+
+  ownerId String?
+
+  stocks           Stock[]
+  fromTransactions Transaction[] @relation("FromInventory")
+  toTransactions   Transaction[] @relation("ToInventory")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
