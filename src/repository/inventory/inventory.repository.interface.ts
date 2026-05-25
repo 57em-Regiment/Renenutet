@@ -1,4 +1,8 @@
-import type { CreateInventory, Inventory, UpdateInventory } from '@57em-regiment/renenutet-api-contract';
+import {
+  CreateInventory,
+  UpdateInventory,
+} from "@57em-regiment/renenutet-api-contract";
+import { Inventory } from "@/generated/client";
 
 export interface IInventoryRepository {
   findAll(): Promise<Inventory[]>;

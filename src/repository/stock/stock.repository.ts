@@ -6,11 +6,24 @@ import {
 import { Stock } from "@/generated/client";
 import { injectable } from "tsyringe";
 import { IStockRepository } from "./stock.repository.interface";
-import { CreateStock, UpdateStock } from "@/models/stock/stock.schema";
+import {
+  CreateStock,
+  UpdateStock,
+} from "@57em-regiment/renenutet-api-contract/schemas/stock.schema";
 
 @injectable()
-export class InventoryRepository implements IStockRepository {
+export class StockRepository implements IStockRepository {
   constructor(private readonly db: Database) {}
+
+  findStocskByInventory(invId: string): Promise<Stock[] | null> {
+    return this.db.context.stock.findMany({ where: { inventoryId: invId } });
+  }
+  getStockByItem(itemId: string): Promise<Stock[] | null> {
+    return this.db.context.stock.findMany({ where: { itemId } });
+  }
+  getStock(id: string, itemId: string): Promise<Stock | null> {
+    return this.db.context.stock.findUnique({ where: { id, itemId } });
+  }
   findAll(): Promise<Stock[]> {
     return this.db.context.stock.findMany({});
   }
