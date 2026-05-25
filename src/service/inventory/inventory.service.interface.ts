@@ -1,5 +1,4 @@
-import type { Inventory } from '@/generated/client';
-import type { CreateInventory, UpdateInventory } from '@/models/inventory/inventory.schema';
+import type { CreateInventory, Inventory, UpdateInventory } from '@57em-regiment/renenutet-api-contract';
 
 export interface IInventoryService {
   getAll(): Promise<Inventory[]>;
