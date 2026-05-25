@@ -1,5 +1,6 @@
 import { env } from '@/config/env';
-import { AppError } from '@/shared/errors/app-error';
+import { errorHandler } from '@/shared/errors/errorHandler';
+import { serializerCompiler, validatorCompiler } from '@fastify/type-provider-zod';
 import Fastify from 'fastify';
 import { inventoryRoutes } from './controller/inventory/inventory.route';
 
@@ -10,24 +11,9 @@ export function buildApp() {
     },
   });
 
-  app.setErrorHandler((error: unknown, req, reply) => {
-    if (error instanceof AppError) {
-      return reply.status(error.statusCode).send({
-        error: error.code ?? error.name,
-        message: error.message,
-      });
-    }
-    if (error instanceof Error && 'validation' in error) {
-      return reply.status(422).send({
-        error: 'VALIDATION_ERROR',
-        message: error.message,
-      });
-    }
-    req.log.error(error);
-    return reply
-      .status(500)
-      .send({ error: 'INTERNAL_ERROR', message: 'Internal server error' });
-  });
+  app.setValidatorCompiler(validatorCompiler);
+  app.setSerializerCompiler(serializerCompiler);
+  app.setErrorHandler(errorHandler);
 
   app.get('/health', async () => ({
     status: 'ok',

@@ -1,11 +1,7 @@
-import { inject, injectable } from 'tsyringe';
-import type { FastifyReply, FastifyRequest } from 'fastify';
-import {
-  createInventorySchema,
-  inventoryParamsSchema,
-  updateInventorySchema,
-} from '@/models/inventory/inventory.schema';
+import type { CreateInventory, InventoryParams, UpdateInventory } from '@57em-regiment/renenutet-api-contract';
 import type { IInventoryService } from '@/service/inventory/inventory.service.interface';
+import type { FastifyReply, FastifyRequest } from 'fastify';
+import { inject, injectable } from 'tsyringe';
 
 @injectable()
 export class InventoryController {
@@ -20,36 +16,34 @@ export class InventoryController {
   }
 
   async getById(
-    req: FastifyRequest<{ Params: { id: string } }>,
+    req: FastifyRequest<{ Params: InventoryParams }>,
     reply: FastifyReply,
   ) {
-    const { id } = inventoryParamsSchema.parse(req.params);
-    const inventory = await this.inventoryService.getById(id);
+    const inventory = await this.inventoryService.getById(req.params.id);
     return reply.send(inventory);
   }
 
-  async create(req: FastifyRequest, reply: FastifyReply) {
-    const data = createInventorySchema.parse(req.body);
-    const inventory = await this.inventoryService.create(data);
+  async create(
+    req: FastifyRequest<{ Body: CreateInventory }>,
+    reply: FastifyReply,
+  ) {
+    const inventory = await this.inventoryService.create(req.body);
     return reply.status(201).send(inventory);
   }
 
   async update(
-    req: FastifyRequest<{ Params: { id: string } }>,
+    req: FastifyRequest<{ Params: InventoryParams; Body: UpdateInventory }>,
     reply: FastifyReply,
   ) {
-    const { id } = inventoryParamsSchema.parse(req.params);
-    const data = updateInventorySchema.parse(req.body);
-    const inventory = await this.inventoryService.update(id, data);
+    const inventory = await this.inventoryService.update(req.params.id, req.body);
     return reply.send(inventory);
   }
 
   async delete(
-    req: FastifyRequest<{ Params: { id: string } }>,
+    req: FastifyRequest<{ Params: InventoryParams }>,
     reply: FastifyReply,
   ) {
-    const { id } = inventoryParamsSchema.parse(req.params);
-    await this.inventoryService.delete(id);
+    await this.inventoryService.delete(req.params.id);
     return reply.status(204).send();
   }
 }

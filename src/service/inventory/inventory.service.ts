@@ -1,8 +1,7 @@
-import { AppError } from '@/shared/errors/app-error';
+import type { CreateInventory, Inventory, UpdateInventory } from '@57em-regiment/renenutet-api-contract';
+import { AppError } from '@/shared/errors/appError';
 import { inject, injectable } from 'tsyringe';
-import type { Inventory } from '@/generated/client';
 import type { IInventoryRepository } from '@/repository/inventory/inventory.repository.interface';
-import type { CreateInventory, UpdateInventory } from '@/models/inventory/inventory.schema';
 import type { IInventoryService } from './inventory.service.interface';
 
 @injectable()
