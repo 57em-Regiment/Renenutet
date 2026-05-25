@@ -1,22 +1,22 @@
-import { container } from "@/infrastructure/container";
-import { ZodTypeProvider } from "@fastify/type-provider-zod";
-import type { FastifyInstance } from "fastify";
-import { z } from "zod";
-import { StockController } from "./stock.controller";
+import { container } from '@/infrastructure/container';
 import {
   stockParamSchema,
   stockSchema,
   updateStockSchema,
-} from "@57em-regiment/renenutet-api-contract/schemas/stock.schema";
+} from '@57em-regiment/renenutet-api-contract/schemas/stock.schema';
+import { ZodTypeProvider } from '@fastify/type-provider-zod';
+import type { FastifyInstance } from 'fastify';
+import { z } from 'zod';
+import { StockController } from './stock.controller';
 
 const errorSchema = z.object({ message: z.string(), error: z.string() });
 
-export async function inventoryRoutes(app: FastifyInstance) {
+export async function stockRoutes(app: FastifyInstance) {
   const ctrl = container.resolve(StockController);
   const server = app.withTypeProvider<ZodTypeProvider>();
 
   server.get(
-    "/",
+    '/',
     {
       schema: { response: { 200: z.array(stockSchema) } },
     },
@@ -24,7 +24,7 @@ export async function inventoryRoutes(app: FastifyInstance) {
   );
 
   server.get(
-    "/:id",
+    '/:id',
     {
       schema: {
         params: stockParamSchema,
@@ -35,7 +35,7 @@ export async function inventoryRoutes(app: FastifyInstance) {
   );
 
   server.get(
-    "/:inventoryId",
+    '/inventories/:inventoryId',
     {
       schema: {
         params: stockParamSchema,
@@ -46,7 +46,7 @@ export async function inventoryRoutes(app: FastifyInstance) {
   );
 
   server.get(
-    "/:itemId",
+    '/items/:itemId',
     {
       schema: {
         params: stockParamSchema,
@@ -57,7 +57,7 @@ export async function inventoryRoutes(app: FastifyInstance) {
   );
 
   server.get(
-    "/:id/:inventoryId",
+    '/:inventoryId/:itemId',
     {
       schema: {
         params: stockParamSchema,
@@ -68,7 +68,7 @@ export async function inventoryRoutes(app: FastifyInstance) {
   );
 
   server.put(
-    "/:id",
+    '/:id',
     {
       schema: {
         params: stockParamSchema,

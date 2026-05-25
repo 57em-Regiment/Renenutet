@@ -7,7 +7,7 @@ export const stockSchema = z.object({
   inventoryId: z.uuid(),
 });
 export const createStockSchema = z.object({
-  quantity: z.number().int().positive().default(0),
+  quantity: z.number().int().default(0),
   itemId: z.uuid(),
   inventoryId: z.uuid(),
 });

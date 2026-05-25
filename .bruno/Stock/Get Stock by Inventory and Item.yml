@@ -1,0 +1,24 @@
+info:
+  name: Get Stock by Inventory and Item
+  type: http
+  seq: 5
+
+http:
+  method: GET
+  url: "{{BaseUrl}}/api/stocks/:inventoryId/:itemId"
+  auth: inherit
+  params:
+    - name: inventoryId
+      value: "{{inventoryId}}"
+      type: path
+      enabled: true
+    - name: itemId
+      value: "{{itemId}}"
+      type: path
+      enabled: true
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
