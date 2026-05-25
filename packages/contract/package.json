@@ -1,6 +1,6 @@
 {
   "name": "@57em-regiment/renenutet-api-contract",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Renenutet API contract — shared between server and consumers",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
