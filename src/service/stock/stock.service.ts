@@ -28,9 +28,4 @@ export class InventoryService implements IStockService {
     await this.getById(id);
     return this.stockRepo.update(id, data);
   }
-
-  async delete(id: string): Promise<void> {
-    await this.getById(id);
-    return this.inventoryRepo.delete(id);
-  }
 }

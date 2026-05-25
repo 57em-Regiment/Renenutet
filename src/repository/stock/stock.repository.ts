@@ -7,7 +7,6 @@ import { Stock } from "@/generated/client";
 import { injectable } from "tsyringe";
 import { IStockRepository } from "./stock.repository.interface";
 import { CreateStock, UpdateStock } from "@/models/stock/stock.schema";
-// import type { CreateUserInput, UpdateUserInput } from './users.schema';
 
 @injectable()
 export class InventoryRepository implements IStockRepository {
