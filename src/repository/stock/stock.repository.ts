@@ -1,6 +1,6 @@
 import { Stock } from "@/generated/client";
 import { Database } from "@/infrastructure/database";
-import { UpdateStock } from "@57em-regiment/renenutet-api-contract/schemas/stock.schema";
+import { UpdateStock } from "@57eme-regiment/renenutet-api-contract/schemas/stock.schema";
 import { injectable } from "tsyringe";
 import { IStockRepository } from "./stock.repository.interface";
 

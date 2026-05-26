@@ -4,7 +4,7 @@ import {
   createInventorySchema,
   inventoryParamsSchema,
   updateInventorySchema,
-} from '@57em-regiment/renenutet-api-contract';
+} from '@57eme-regiment/renenutet-api-contract';
 import { ZodTypeProvider } from '@fastify/type-provider-zod';
 import type { FastifyInstance } from 'fastify';
 import { z } from 'zod';

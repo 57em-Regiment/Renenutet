@@ -1,4 +1,4 @@
-import type { CreateInventory, InventoryParams, UpdateInventory } from '@57em-regiment/renenutet-api-contract';
+import type { CreateInventory, InventoryParams, UpdateInventory } from '@57eme-regiment/renenutet-api-contract';
 import type { IInventoryService } from '@/service/inventory/inventory.service.interface';
 import type { FastifyReply, FastifyRequest } from 'fastify';
 import { inject, injectable } from 'tsyringe';

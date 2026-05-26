@@ -1,5 +1,5 @@
 import type { Stock } from "@/generated/client";
-import type { UpdateStock } from "@57em-regiment/renenutet-api-contract/schemas/stock.schema";
+import type { UpdateStock } from "@57eme-regiment/renenutet-api-contract/schemas/stock.schema";
 
 /** Contrat métier pour la gestion des stocks. */
 export interface IStockService {

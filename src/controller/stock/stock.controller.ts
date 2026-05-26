@@ -2,7 +2,7 @@ import { IStockService } from "@/service/stock/stock.service.interface";
 import {
   StockParams,
   UpdateStock,
-} from "@57em-regiment/renenutet-api-contract/schemas/stock.schema";
+} from "@57eme-regiment/renenutet-api-contract/schemas/stock.schema";
 import { FastifyReply, FastifyRequest } from "fastify";
 import { inject, injectable } from "tsyringe";
 

@@ -5,7 +5,7 @@ import {
   stockParamSchema,
   stockSchema,
   updateStockSchema,
-} from "@57em-regiment/renenutet-api-contract/schemas/stock.schema";
+} from "@57eme-regiment/renenutet-api-contract/schemas/stock.schema";
 import { ZodTypeProvider } from "@fastify/type-provider-zod";
 import type { FastifyInstance } from "fastify";
 import { z } from "zod";

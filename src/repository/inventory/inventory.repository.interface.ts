@@ -1,4 +1,4 @@
-import type { CreateInventory, Inventory, UpdateInventory } from '@57em-regiment/renenutet-api-contract';
+import type { CreateInventory, Inventory, UpdateInventory } from '@57eme-regiment/renenutet-api-contract';
 
 /** Contrat d'accès aux données pour les inventaires. */
 export interface IInventoryRepository {

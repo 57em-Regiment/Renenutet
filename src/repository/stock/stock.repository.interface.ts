@@ -1,4 +1,4 @@
-import { UpdateStock } from "@57em-regiment/renenutet-api-contract/schemas/stock.schema";
+import { UpdateStock } from "@57eme-regiment/renenutet-api-contract/schemas/stock.schema";
 import { Stock } from "@/generated/client";
 
 /** Contrat d'accès aux données pour les stocks. */

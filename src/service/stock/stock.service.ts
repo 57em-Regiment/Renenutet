@@ -1,7 +1,7 @@
 import type { Stock } from "@/generated/client";
 import type { IStockRepository } from "@/repository/stock/stock.repository.interface";
 import { AppError } from "@/shared/errors/appError";
-import { UpdateStock } from "@57em-regiment/renenutet-api-contract/schemas/stock.schema";
+import { UpdateStock } from "@57eme-regiment/renenutet-api-contract/schemas/stock.schema";
 import { inject, injectable } from "tsyringe";
 import type { IStockService } from "./stock.service.interface";
 

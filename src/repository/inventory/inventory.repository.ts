@@ -1,4 +1,4 @@
-import type { CreateInventory, Inventory, UpdateInventory } from '@57em-regiment/renenutet-api-contract';
+import type { CreateInventory, Inventory, UpdateInventory } from '@57eme-regiment/renenutet-api-contract';
 import { Database } from '@/infrastructure/database';
 import { injectable } from 'tsyringe';
 import type { IInventoryRepository } from './inventory.repository.interface';
