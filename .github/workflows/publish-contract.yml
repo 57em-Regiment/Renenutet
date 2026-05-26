@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - 'packages/contract/**'
+  workflow_dispatch:
 
 jobs:
   publish:
