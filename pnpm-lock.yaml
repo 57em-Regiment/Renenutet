@@ -8,7 +8,7 @@ importers:
 
   .:
     dependencies:
-      '@57em-regiment/renenutet-api-contract':
+      '@57eme-regiment/renenutet-api-contract':
         specifier: workspace:*
         version: link:packages/contract
       '@fastify/type-provider-zod':

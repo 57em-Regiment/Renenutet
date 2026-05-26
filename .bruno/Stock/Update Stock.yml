@@ -1,0 +1,30 @@
+info:
+  name: Update Stock
+  type: http
+  seq: 5
+
+http:
+  method: PUT
+  url: "{{BaseUrl}}/api/stocks/:inventoryId/:itemId"
+  auth: inherit
+  params:
+    - name: inventoryId
+      value: "{{inventoryId}}"
+      type: path
+      enabled: true
+    - name: itemId
+      value: "{{itemId}}"
+      type: path
+      enabled: true
+  body:
+    mode: json
+    json: |
+      {
+        "quantity": 10
+      }
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

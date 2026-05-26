@@ -1,8 +1,12 @@
 import { env } from '@/config/env';
 import { errorHandler } from '@/shared/errors/errorHandler';
-import { serializerCompiler, validatorCompiler } from '@fastify/type-provider-zod';
+import {
+  serializerCompiler,
+  validatorCompiler,
+} from '@fastify/type-provider-zod';
 import Fastify from 'fastify';
 import { inventoryRoutes } from './controller/inventory/inventory.route';
+import { stockRoutes } from './controller/stock/stock.route';
 
 export function buildApp() {
   const app = Fastify({
@@ -20,6 +24,7 @@ export function buildApp() {
     timestamp: new Date().toISOString(),
   }));
   app.register(inventoryRoutes, { prefix: '/api/inventories' });
+  app.register(stockRoutes, { prefix: '/api/stocks' });
 
   return app;
 }
