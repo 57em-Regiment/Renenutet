@@ -3,6 +3,7 @@ import type { ILocationRefService } from '@/service/locationRef/locationRef.serv
 import type { FastifyReply, FastifyRequest } from 'fastify';
 import { inject, injectable } from 'tsyringe';
 
+/** Contrôleur HTTP pour la gestion des références de localisation. */
 @injectable()
 export class LocationRefController {
   constructor(
@@ -10,11 +11,13 @@ export class LocationRefController {
     private readonly locationRefService: ILocationRefService,
   ) {}
 
+  /** Crée un ensemble de références de localisation et retourne les ressources créées (201). */
   async createRange(req: FastifyRequest<{ Body: createLocationRef[] }>, reply: FastifyReply) {
     const items = await this.locationRefService.createRange(req.body);
     return reply.status(201).send(items);
   }
 
+  /** Supprime toutes les références de localisation (204 sans corps). */
   async drop(_req: FastifyRequest, reply: FastifyReply) {
     await this.locationRefService.drop();
     return reply.status(204).send();
