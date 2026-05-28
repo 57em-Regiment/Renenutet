@@ -17,7 +17,7 @@ config:
 request:
   variables:
     - name: BaseUrl
-      value: http://127.0.0.1:3000
+      value: http://127.0.0.1:3001
 bundled: false
 extensions:
   bruno:

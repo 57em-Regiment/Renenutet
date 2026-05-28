@@ -1,5 +1,8 @@
-import type { createItemRef, itemRef } from '@57eme-regiment/renenutet-api-contract';
 import { Database } from '@/infrastructure/database';
+import type {
+  createItemRef,
+  itemRef,
+} from '@57eme-regiment/renenutet-api-contract';
 import { injectable } from 'tsyringe';
 import type { IItemRefRepository } from './itemRef.repository.interface';
 
@@ -10,10 +13,7 @@ export class ItemRefRepository implements IItemRefRepository {
 
   /** @inheritdoc */
   async createMany(data: createItemRef[]): Promise<itemRef[]> {
-    await this.db.context.ref_item.createMany({ data });
-    return this.db.context.ref_item.findMany({
-      where: { id: { in: data.map((d) => d.id) } },
-    });
+    return this.db.context.ref_item.createManyAndReturn({ data });
   }
 
   /** @inheritdoc */

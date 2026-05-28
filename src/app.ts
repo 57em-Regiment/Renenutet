@@ -18,7 +18,10 @@ export function buildApp() {
     },
   });
 
-  app.register(cors, { origin: env.CORS_ORIGINS });
+  app.register(cors, {
+    origin: env.CORS_ORIGINS,
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+  });
 
   app.setValidatorCompiler(validatorCompiler);
   app.setSerializerCompiler(serializerCompiler);
