@@ -9,11 +9,13 @@ import { initContract } from '@ts-rest/core';
 import { inventoryContract } from './contracts/inventory.contract';
 import { itemRefContract } from './contracts/itemRef.contract';
 import { locationRefContract } from './contracts/locationRef.contract';
+import { stockContract } from './contracts/stock.contract';
 
 const c = initContract();
 
 export const contract = c.router({
   inventory: inventoryContract,
+  stock: stockContract,
   itemRef: itemRefContract,
   locationRef: locationRefContract,
 });
