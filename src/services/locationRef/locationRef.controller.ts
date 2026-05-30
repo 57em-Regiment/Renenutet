@@ -1,7 +1,7 @@
 import { LocationRefService } from '@/services/locationRef/locationRef.service';
 import type { createLocationRef } from '@57eme-regiment/renenutet-api-contract';
 import type { FastifyReply, FastifyRequest } from 'fastify';
-import { inject, injectable } from 'tsyringe';
+import { injectable } from 'tsyringe';
 
 /** Contrôleur HTTP pour la gestion des références de localisation. */
 @injectable()

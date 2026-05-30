@@ -1,6 +1,6 @@
 import type { CreateInventory, Inventory, UpdateInventory } from '@57eme-regiment/renenutet-api-contract';
 import { AppError } from '@/shared/errors/appError';
-import { inject, injectable } from 'tsyringe';
+import { injectable } from 'tsyringe';
 import { InventoryRepository } from './inventory.repository';
 
 /** Service métier pour la gestion des inventaires. */

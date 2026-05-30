@@ -1,7 +1,7 @@
 import { ItemRefService } from '@/services/itemRef/itemRef.service';
 import type { createItemRef } from '@57eme-regiment/renenutet-api-contract';
 import type { FastifyReply, FastifyRequest } from 'fastify';
-import { inject, injectable } from 'tsyringe';
+import { injectable } from 'tsyringe';
 
 /** Contrôleur HTTP pour la gestion des références d'articles. */
 @injectable()

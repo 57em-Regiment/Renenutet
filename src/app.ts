@@ -7,9 +7,9 @@ import {
 } from '@fastify/type-provider-zod';
 import Fastify from 'fastify';
 import { logger } from './config/logger';
+import { inventoryRoutes } from './services/inventory/inventory.route';
 import { itemRefRoutes } from './services/itemRef/itemRef.route';
 import { locationRefRoutes } from './services/locationRef/locationRef.route';
-import { inventoryRoutes } from './services/inventory/inventory.route';
 import { stockRoutes } from './services/stock/stock.route';
 
 export function buildApp() {
@@ -31,6 +31,7 @@ export function buildApp() {
 
   app.register(cors, {
     origin: env.CORS_ORIGINS,
+    credentials: true,
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
   });
 

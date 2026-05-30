@@ -2,7 +2,7 @@ import type {
   createItemRef,
   itemRef,
 } from '@57eme-regiment/renenutet-api-contract';
-import { inject, injectable } from 'tsyringe';
+import { injectable } from 'tsyringe';
 import { ItemRefRepository } from './itemRef.repository';
 
 /** Service métier pour la gestion des références d'articles. */

@@ -9,11 +9,11 @@ importers:
   .:
     dependencies:
       '@57eme-regiment/auth-contracts':
-        specifier: ^1.3.0
-        version: 1.3.0(@types/node@22.19.19)
+        specifier: ^1.5.0
+        version: 1.5.0(@types/node@22.19.19)
       '@57eme-regiment/auth-server':
-        specifier: ^1.3.0
-        version: 1.3.0(@types/node@22.19.19)(fastify@5.8.5)
+        specifier: ^1.5.0
+        version: 1.5.0(@types/node@22.19.19)(fastify@5.8.5)
       '@57eme-regiment/renenutet-api-contract':
         specifier: workspace:*
         version: link:packages/contract
@@ -30,7 +30,7 @@ importers:
         specifier: ^7.8.0
         version: 7.8.0(prisma@7.8.0(@types/react@19.2.15)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(typescript@5.9.3))(typescript@5.9.3)
       fastify:
-        specifier: ^5.0.0
+        specifier: ^5.8.5
         version: 5.8.5
       reflect-metadata:
         specifier: ^0.2.2
@@ -39,14 +39,14 @@ importers:
         specifier: ^4.10.2
         version: 4.10.2
       tsyringe:
-        specifier: ^4.8.0
+        specifier: ^4.10.0
         version: 4.10.0
       zod:
         specifier: ^4.4.3
         version: 4.4.3
     devDependencies:
       '@types/node':
-        specifier: ^22.0.0
+        specifier: ^22.19.19
         version: 22.19.19
       dotenv:
         specifier: ^17.4.2
@@ -64,7 +64,7 @@ importers:
         specifier: ^4.2.0
         version: 4.2.0
       typescript:
-        specifier: ^5.6.0
+        specifier: ^5.9.3
         version: 5.9.3
 
   packages/contract:
@@ -82,11 +82,11 @@ importers:
 
 packages:
 
-  '@57eme-regiment/auth-contracts@1.3.0':
-    resolution: {integrity: sha512-MfxEcWRMQWxOaQ/H0TKEnBAv3ZVONv+lsB/T05WHqYdLm5/jsttGAasGxbhz0VRQJUFmZG1rJAAgOwuAgjZzow==, tarball: https://npm.pkg.github.com/download/@57eme-regiment/auth-contracts/1.3.0/be155a98371dd15ccc768e229c6a1ebbdc2e8290}
+  '@57eme-regiment/auth-contracts@1.5.0':
+    resolution: {integrity: sha512-CCz9OZ8F3AAzyMmYVS1q38HaiMsRtwIzBAn9yONJMr+F/AAiT+sL1mRFIkP4oWO+6grthTF2AJfVy22+B42eEg==, tarball: https://npm.pkg.github.com/download/@57eme-regiment/auth-contracts/1.5.0/99e39a228483601e2b3c2ccfd4a816b97081392f}
 
-  '@57eme-regiment/auth-server@1.3.0':
-    resolution: {integrity: sha512-ckh3hUS8LZNcfUquqN6LJXKZ1b5gMX+TI/HvCUJAJDlqbaqaD0v0xrS8pYC3wMtfAdUlLGXmbNnej7uv1oYkZw==, tarball: https://npm.pkg.github.com/download/@57eme-regiment/auth-server/1.3.0/16f0ba0d2b0e68f5739d072c9f2049e9b3928dd0}
+  '@57eme-regiment/auth-server@1.5.0':
+    resolution: {integrity: sha512-GQzbAHr+hpQ9BfXW7XIr8ZxJYTFWN/iQKg5N9AUuWubtFgS+CnNHiDR3z/YWqKqqqrb2GxayShq/Afxxlx9SoQ==, tarball: https://npm.pkg.github.com/download/@57eme-regiment/auth-server/1.5.0/ea866b2ee74575760711421b9a70a6d3db2f4e40}
     peerDependencies:
       fastify: '>=5'
 
@@ -388,8 +388,8 @@ packages:
     resolution: {integrity: sha512-Ceh+7ox5qe7LJuLHoY0feh3pHuUDHAcRUeyL2VYghZwfpkNIy/+8Ocg0a3UuSoYzavmylwuLWQOf3hl0jjMMIw==}
     engines: {node: '>=8'}
 
-  brace-expansion@1.1.14:
-    resolution: {integrity: sha512-MWPGfDxnyzKU7rNOW9SP/c50vi3xrmrua/+6hfPbCS2ABNWfx24vPidzvC7krjU/RTo235sV776ymlsMtGKj8g==}
+  brace-expansion@1.1.15:
+    resolution: {integrity: sha512-EwOCDEex4quD37XhqM3omwtMoJjr//isUZz1JopUNWms+4Z2ViyM/k1YIRePpoVNnQhENnxtFjLaxNHrT7xIUg==}
 
   braces@3.0.3:
     resolution: {integrity: sha512-yQbXgO/OSZVD2IsiLlro+7Hf6Q18EJrKSEsdoMzKePKXct3gvD8oLcOQdIzGupr5Fj+EDe8gO/lxc1BzfMpxvA==}
@@ -572,12 +572,12 @@ packages:
   graphmatch@1.1.1:
     resolution: {integrity: sha512-5ykVn/EXM1hF0XCaWh05VbYvEiOL2lY1kBxZtaYsyvjp7cmWOU1XsAdfQBwClraEofXDT197lFbXOEVMHpvQOg==}
 
-  hasown@2.0.3:
-    resolution: {integrity: sha512-ej4AhfhfL2Q2zpMmLo7U1Uv9+PyhIZpgQLGT1F9miIGmiCJIoCgSmczFdrc97mWT4kVY72KA+WnnhJ5pghSvSg==}
+  hasown@2.0.4:
+    resolution: {integrity: sha512-T2UbfbBEF32wiepXIsMlTW9+dDYC6wMh/t/vYA4tuOMKqWz/n3vr1NFSxQiyP+zk2mXsoMA/i/7qV6LKut1t1A==}
     engines: {node: '>= 0.4'}
 
-  hono@4.12.22:
-    resolution: {integrity: sha512-7fvVPbB92zNRsQke+uiRGwtTuef0tB2Dg4hWxYfFNvkQhIltWoyi0ONReM5LWA+jJWS3nfT5lTq+qbsIpX0IQw==}
+  hono@4.12.23:
+    resolution: {integrity: sha512-eIaZ9qDgu7XV0pxOCrg7/WhnQ6Ivm22UcxhXx/A3dcbqbbYgBEkc6e/J/s7j2tS96zoB0S9VBdLwQNCWwUo4LA==}
     engines: {node: '>=16.9.0'}
 
   http-status-codes@2.3.0:
@@ -1060,16 +1060,16 @@ packages:
 
 snapshots:
 
-  '@57eme-regiment/auth-contracts@1.3.0(@types/node@22.19.19)':
+  '@57eme-regiment/auth-contracts@1.5.0(@types/node@22.19.19)':
     dependencies:
       '@ts-rest/core': 3.53.0-rc.1(@types/node@22.19.19)
       zod: 4.4.3
     transitivePeerDependencies:
       - '@types/node'
 
-  '@57eme-regiment/auth-server@1.3.0(@types/node@22.19.19)(fastify@5.8.5)':
+  '@57eme-regiment/auth-server@1.5.0(@types/node@22.19.19)(fastify@5.8.5)':
     dependencies:
-      '@57eme-regiment/auth-contracts': 1.3.0(@types/node@22.19.19)
+      '@57eme-regiment/auth-contracts': 1.5.0(@types/node@22.19.19)
       fastify: 5.8.5
     transitivePeerDependencies:
       - '@types/node'
@@ -1134,9 +1134,9 @@ snapshots:
       openapi-types: 12.1.3
       zod: 4.4.3
 
-  '@hono/node-server@1.19.11(hono@4.12.22)':
+  '@hono/node-server@1.19.11(hono@4.12.23)':
     dependencies:
-      hono: 4.12.22
+      hono: 4.12.23
 
   '@jridgewell/resolve-uri@3.1.2': {}
 
@@ -1187,13 +1187,13 @@ snapshots:
       '@electric-sql/pglite': 0.4.1
       '@electric-sql/pglite-socket': 0.1.1(@electric-sql/pglite@0.4.1)
       '@electric-sql/pglite-tools': 0.3.1(@electric-sql/pglite@0.4.1)
-      '@hono/node-server': 1.19.11(hono@4.12.22)
+      '@hono/node-server': 1.19.11(hono@4.12.23)
       '@prisma/get-platform': 7.2.0
       '@prisma/query-plan-executor': 7.2.0
       '@prisma/streams-local': 0.1.2
       foreground-child: 3.3.1
       get-port-please: 3.2.0
-      hono: 4.12.22
+      hono: 4.12.23
       http-status-codes: 2.3.0
       pathe: 2.0.3
       proper-lockfile: 4.1.2
@@ -1377,7 +1377,7 @@ snapshots:
 
   binary-extensions@2.3.0: {}
 
-  brace-expansion@1.1.14:
+  brace-expansion@1.1.15:
     dependencies:
       balanced-match: 1.0.2
       concat-map: 0.0.1
@@ -1570,11 +1570,11 @@ snapshots:
 
   graphmatch@1.1.1: {}
 
-  hasown@2.0.3:
+  hasown@2.0.4:
     dependencies:
       function-bind: 1.1.2
 
-  hono@4.12.22: {}
+  hono@4.12.23: {}
 
   http-status-codes@2.3.0: {}
 
@@ -1597,7 +1597,7 @@ snapshots:
 
   is-core-module@2.16.2:
     dependencies:
-      hasown: 2.0.3
+      hasown: 2.0.4
 
   is-extglob@2.1.1: {}
 
@@ -1643,7 +1643,7 @@ snapshots:
 
   minimatch@3.1.5:
     dependencies:
-      brace-expansion: 1.1.14
+      brace-expansion: 1.1.15
 
   minimist@1.2.8: {}
 

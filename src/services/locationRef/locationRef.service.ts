@@ -1,5 +1,5 @@
 import type { createLocationRef, locationRef } from '@57eme-regiment/renenutet-api-contract';
-import { inject, injectable } from 'tsyringe';
+import { injectable } from 'tsyringe';
 import { LocationRefRepository } from './locationRef.repository';
 
 /** Service métier pour la gestion des références de localisation. */
