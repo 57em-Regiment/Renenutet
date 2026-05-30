@@ -6,16 +6,27 @@ import {
   validatorCompiler,
 } from '@fastify/type-provider-zod';
 import Fastify from 'fastify';
+import { logger } from './config/logger';
 import { inventoryRoutes } from './controller/inventory/inventory.route';
 import { itemRefRoutes } from './controller/itemRef/itemRef.route';
 import { locationRefRoutes } from './controller/locationRef/locationRef.route';
 import { stockRoutes } from './controller/stock/stock.route';
 
 export function buildApp() {
-  const app = Fastify({
-    logger: {
-      level: env.NODE_ENV === 'production' ? 'info' : 'debug',
-    },
+  const app = Fastify({ logger: { level: 'error' } });
+
+  app.addHook('onRequest', (req, _reply, done) => {
+    logger.info(
+      `→ reqId:"${req.id}" ${req.method} ${req.url} from:${req.host} user:${req.user ? req.user.username : 'no user'} msg:"incoming request"`,
+    );
+    done();
+  });
+
+  app.addHook('onResponse', (req, reply, done) => {
+    logger.info(
+      `← reqId:"${req.id}" ${req.method} ${req.url} ${reply.statusCode} ${reply.elapsedTime.toFixed(2)}ms msg:"request completed"`,
+    );
+    done();
   });
 
   app.register(cors, {

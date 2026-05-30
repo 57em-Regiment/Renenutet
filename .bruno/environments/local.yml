@@ -1,0 +1,4 @@
+name: local
+variables:
+  - name: BaseUrl
+    value: http://renenutet.57regiment.local:3002

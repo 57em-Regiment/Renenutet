@@ -7,13 +7,16 @@ const envSchema = z.object({
     .default('development'),
   PORT: z.coerce.number().default(3000),
   HOST: z.string().default('0.0.0.0'),
-  DATABASE_URL: z.url(),
+
+  ALLOWED_HOST: z.string().optional(),
   CORS_ORIGINS: z
     .string()
     .default('*')
-    .transform((val) =>
-      val === '*' ? '*' : val.split(',').map((s) => s.trim()),
-    ),
+    .transform(val => (val === '*' ? '*' : val.split(',').map(s => s.trim()))),
+
+  DATABASE_URL: z.url(),
+
+  WANSHITONG_SERVICE_URL: z.url(),
 });
 
 export const env = envSchema.parse(process.env);
