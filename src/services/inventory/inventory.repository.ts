@@ -1,34 +1,37 @@
-import type { CreateInventory, Inventory, UpdateInventory } from '@57eme-regiment/renenutet-api-contract';
 import { Database } from '@/infrastructure/database';
+import type {
+  CreateInventory,
+  Inventory,
+  UpdateInventory,
+} from '@57eme-regiment/renenutet-api-contract';
 import { injectable } from 'tsyringe';
-import type { IInventoryRepository } from './inventory.repository.interface';
 
-/** Implémentation Prisma du repository pour les inventaires. */
+/** Contrat d'accès aux données pour les inventaires. */
 @injectable()
-export class InventoryRepository implements IInventoryRepository {
+export class InventoryRepository {
   constructor(private readonly db: Database) {}
 
-  /** @inheritdoc */
+  /** Retourne tous les inventaires. */
   findAll(): Promise<Inventory[]> {
     return this.db.context.inventory.findMany({});
   }
 
-  /** @inheritdoc */
+  /** Retourne un inventaire par son id, ou `null` s'il est introuvable. */
   findById(id: string): Promise<Inventory | null> {
     return this.db.context.inventory.findUnique({ where: { id } });
   }
 
-  /** @inheritdoc */
+  /** Persiste un nouvel inventaire. */
   create(data: CreateInventory): Promise<Inventory> {
     return this.db.context.inventory.create({ data });
   }
 
-  /** @inheritdoc */
+  /** Met à jour les champs d'un inventaire existant. */
   update(id: string, data: UpdateInventory): Promise<Inventory> {
     return this.db.context.inventory.update({ where: { id }, data });
   }
 
-  /** @inheritdoc */
+  /** Supprime un inventaire. */
   async delete(id: string): Promise<void> {
     await this.db.context.inventory.delete({ where: { id } });
   }

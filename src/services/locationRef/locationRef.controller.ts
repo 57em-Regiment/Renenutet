@@ -1,5 +1,5 @@
+import { LocationRefService } from '@/services/locationRef/locationRef.service';
 import type { createLocationRef } from '@57eme-regiment/renenutet-api-contract';
-import type { ILocationRefService } from '@/service/locationRef/locationRef.service.interface';
 import type { FastifyReply, FastifyRequest } from 'fastify';
 import { inject, injectable } from 'tsyringe';
 
@@ -7,12 +7,14 @@ import { inject, injectable } from 'tsyringe';
 @injectable()
 export class LocationRefController {
   constructor(
-    @inject('ILocationRefService')
-    private readonly locationRefService: ILocationRefService,
+    private readonly locationRefService: LocationRefService,
   ) {}
 
   /** Crée un ensemble de références de localisation et retourne les ressources créées (201). */
-  async createRange(req: FastifyRequest<{ Body: createLocationRef[] }>, reply: FastifyReply) {
+  async createRange(
+    req: FastifyRequest<{ Body: createLocationRef[] }>,
+    reply: FastifyReply,
+  ) {
     const items = await this.locationRefService.createRange(req.body);
     return reply.status(201).send(items);
   }

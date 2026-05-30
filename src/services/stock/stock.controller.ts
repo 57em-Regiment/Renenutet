@@ -1,17 +1,15 @@
-import { IStockService } from "@/service/stock/stock.service.interface";
+import { StockService } from '@/services/stock/stock.service';
 import {
   StockParams,
   UpdateStock,
-} from "@57eme-regiment/renenutet-api-contract/schemas/stock.schema";
-import { FastifyReply, FastifyRequest } from "fastify";
-import { inject, injectable } from "tsyringe";
+} from '@57eme-regiment/renenutet-api-contract/schemas/stock.schema';
+import { FastifyReply, FastifyRequest } from 'fastify';
+import { injectable } from 'tsyringe';
 
 /** Contrôleur HTTP pour les opérations de lecture et mise à jour des stocks. */
 @injectable()
 export class StockController {
-  constructor(
-    @inject("IStockService") private readonly stockService: IStockService,
-  ) {}
+  constructor(private readonly stockService: StockService) {}
 
   /** Retourne la liste complète des stocks. */
   async getAll(_req: FastifyRequest, reply: FastifyReply) {
@@ -24,7 +22,9 @@ export class StockController {
     req: FastifyRequest<{ Params: { inventoryId: string } }>,
     reply: FastifyReply,
   ) {
-    const stocks = await this.stockService.getByInventory(req.params.inventoryId);
+    const stocks = await this.stockService.getByInventory(
+      req.params.inventoryId,
+    );
     return reply.send(stocks);
   }
 
@@ -45,7 +45,10 @@ export class StockController {
     req: FastifyRequest<{ Params: StockParams }>,
     reply: FastifyReply,
   ) {
-    const stock = await this.stockService.getByKey(req.params.itemId, req.params.inventoryId);
+    const stock = await this.stockService.getByKey(
+      req.params.itemId,
+      req.params.inventoryId,
+    );
     return reply.send(stock);
   }
 
@@ -57,7 +60,11 @@ export class StockController {
     req: FastifyRequest<{ Params: StockParams; Body: UpdateStock }>,
     reply: FastifyReply,
   ) {
-    const stock = await this.stockService.update(req.params.itemId, req.params.inventoryId, req.body);
+    const stock = await this.stockService.update(
+      req.params.itemId,
+      req.params.inventoryId,
+      req.body,
+    );
     return reply.send(stock);
   }
 }

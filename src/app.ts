@@ -7,10 +7,10 @@ import {
 } from '@fastify/type-provider-zod';
 import Fastify from 'fastify';
 import { logger } from './config/logger';
-import { inventoryRoutes } from './controller/inventory/inventory.route';
-import { itemRefRoutes } from './controller/itemRef/itemRef.route';
-import { locationRefRoutes } from './controller/locationRef/locationRef.route';
-import { stockRoutes } from './controller/stock/stock.route';
+import { itemRefRoutes } from './services/itemRef/itemRef.route';
+import { locationRefRoutes } from './services/locationRef/locationRef.route';
+import { inventoryRoutes } from './services/inventory/inventory.route';
+import { stockRoutes } from './services/stock/stock.route';
 
 export function buildApp() {
   const app = Fastify({ logger: { level: 'error' } });

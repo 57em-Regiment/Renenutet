@@ -1,41 +1,48 @@
 import type { CreateInventory, Inventory, UpdateInventory } from '@57eme-regiment/renenutet-api-contract';
 import { AppError } from '@/shared/errors/appError';
 import { inject, injectable } from 'tsyringe';
-import type { IInventoryRepository } from '@/repository/inventory/inventory.repository.interface';
-import type { IInventoryService } from './inventory.service.interface';
+import { InventoryRepository } from './inventory.repository';
 
-/** Implémentation du service métier pour les inventaires. */
+/** Service métier pour la gestion des inventaires. */
 @injectable()
-export class InventoryService implements IInventoryService {
+export class InventoryService {
   constructor(
-    @inject('IInventoryRepository')
-    private readonly inventoryRepo: IInventoryRepository,
+    private readonly inventoryRepo: InventoryRepository,
   ) {}
 
-  /** @inheritdoc */
+  /** Retourne tous les inventaires. */
   async getAll(): Promise<Inventory[]> {
     return this.inventoryRepo.findAll();
   }
 
-  /** @inheritdoc */
+  /**
+   * Retourne un inventaire par son identifiant.
+   * @throws {AppError} 404 si l'inventaire est introuvable.
+   */
   async getById(id: string): Promise<Inventory> {
     const inventory = await this.inventoryRepo.findById(id);
     if (!inventory) throw new AppError('Inventory not found', 404, 'INVENTORY_NOT_FOUND');
     return inventory;
   }
 
-  /** @inheritdoc */
+  /** Crée un nouvel inventaire. */
   async create(data: CreateInventory): Promise<Inventory> {
     return this.inventoryRepo.create(data);
   }
 
-  /** @inheritdoc */
+  /**
+   * Met à jour un inventaire existant.
+   * @throws {AppError} 404 si l'inventaire est introuvable.
+   */
   async update(id: string, data: UpdateInventory): Promise<Inventory> {
     await this.getById(id);
     return this.inventoryRepo.update(id, data);
   }
 
-  /** @inheritdoc */
+  /**
+   * Supprime un inventaire.
+   * @throws {AppError} 404 si l'inventaire est introuvable.
+   */
   async delete(id: string): Promise<void> {
     await this.getById(id);
     return this.inventoryRepo.delete(id);

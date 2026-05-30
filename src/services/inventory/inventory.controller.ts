@@ -1,15 +1,16 @@
-import type { CreateInventory, InventoryParams, UpdateInventory } from '@57eme-regiment/renenutet-api-contract';
-import type { IInventoryService } from '@/service/inventory/inventory.service.interface';
+import { InventoryService } from '@/services/inventory/inventory.service';
+import type {
+  CreateInventory,
+  InventoryParams,
+  UpdateInventory,
+} from '@57eme-regiment/renenutet-api-contract';
 import type { FastifyReply, FastifyRequest } from 'fastify';
-import { inject, injectable } from 'tsyringe';
+import { injectable } from 'tsyringe';
 
 /** Contrôleur HTTP pour les opérations CRUD sur les inventaires. */
 @injectable()
 export class InventoryController {
-  constructor(
-    @inject('IInventoryService')
-    private readonly inventoryService: IInventoryService,
-  ) {}
+  constructor(private readonly inventoryService: InventoryService) {}
 
   /** Retourne la liste complète des inventaires. */
   async getAll(_req: FastifyRequest, reply: FastifyReply) {
@@ -46,7 +47,10 @@ export class InventoryController {
     req: FastifyRequest<{ Params: InventoryParams; Body: UpdateInventory }>,
     reply: FastifyReply,
   ) {
-    const inventory = await this.inventoryService.update(req.params.id, req.body);
+    const inventory = await this.inventoryService.update(
+      req.params.id,
+      req.body,
+    );
     return reply.send(inventory);
   }
 

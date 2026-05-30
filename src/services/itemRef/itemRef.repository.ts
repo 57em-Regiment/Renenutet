@@ -4,19 +4,18 @@ import type {
   itemRef,
 } from '@57eme-regiment/renenutet-api-contract';
 import { injectable } from 'tsyringe';
-import type { IItemRefRepository } from './itemRef.repository.interface';
 
-/** Implémentation Prisma du repository pour les références d'articles. */
+/** Contrat d'accès aux données pour les références d'articles. */
 @injectable()
-export class ItemRefRepository implements IItemRefRepository {
+export class ItemRefRepository {
   constructor(private readonly db: Database) {}
 
-  /** @inheritdoc */
+  /** Insère plusieurs références et retourne les enregistrements créés. */
   async createMany(data: createItemRef[]): Promise<itemRef[]> {
     return this.db.context.ref_item.createManyAndReturn({ data });
   }
 
-  /** @inheritdoc */
+  /** Supprime toutes les références d'articles. */
   async deleteAll(): Promise<void> {
     await this.db.context.ref_item.deleteMany({});
   }

@@ -2,36 +2,38 @@ import { Stock } from "@/generated/client";
 import { Database } from "@/infrastructure/database";
 import { UpdateStock } from "@57eme-regiment/renenutet-api-contract/schemas/stock.schema";
 import { injectable } from "tsyringe";
-import { IStockRepository } from "./stock.repository.interface";
 
-/** Implémentation Prisma du repository pour les stocks. */
+/** Contrat d'accès aux données pour les stocks. */
 @injectable()
-export class StockRepository implements IStockRepository {
+export class StockRepository {
   constructor(private readonly db: Database) {}
 
-  /** @inheritdoc */
+  /** Retourne tous les stocks. */
   findAll(): Promise<Stock[]> {
     return this.db.context.stock.findMany({});
   }
 
-  /** @inheritdoc */
+  /**
+   * Retourne le stock d'un item dans un inventaire via la clé composite,
+   * ou `null` s'il est introuvable.
+   */
   findByKey(itemId: string, inventoryId: string): Promise<Stock | null> {
     return this.db.context.stock.findUnique({
       where: { itemId_inventoryId: { itemId, inventoryId } },
     });
   }
 
-  /** @inheritdoc */
+  /** Retourne tous les stocks associés à un inventaire. */
   findByInventory(inventoryId: string): Promise<Stock[]> {
     return this.db.context.stock.findMany({ where: { inventoryId } });
   }
 
-  /** @inheritdoc */
+  /** Retourne tous les stocks associés à un item. */
   findByItem(itemId: string): Promise<Stock[]> {
     return this.db.context.stock.findMany({ where: { itemId } });
   }
 
-  /** @inheritdoc */
+  /** Met à jour les champs d'un stock via la clé composite. */
   update(itemId: string, inventoryId: string, data: UpdateStock): Promise<Stock> {
     return this.db.context.stock.update({
       where: { itemId_inventoryId: { itemId, inventoryId } },
