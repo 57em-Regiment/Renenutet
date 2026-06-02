@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { z } from 'zod';
 
 export const stockSchema = z.object({
   quantity: z.number().int(),
@@ -6,24 +6,32 @@ export const stockSchema = z.object({
   inventoryId: z.uuid(),
   updatedAt: z.coerce.date(),
 });
+export type StockSchema = z.infer<typeof stockSchema>;
+
+export const createStockSchema = z.object({
+  itemId: z.uuid(),
+  inventoryId: z.uuid(),
+  quantity: z.number().int().nonnegative().optional().default(0),
+});
+export type CreateStock = z.infer<typeof createStockSchema>;
 
 export const updateStockSchema = z.object({
   quantity: z.number().int().optional(),
 });
+export type UpdateStock = z.infer<typeof updateStockSchema>;
 
-export const stockParamSchema = z.object({
-  itemId: z.uuid(),
+export const stockIdParamSchema = z.object({
   inventoryId: z.uuid(),
+  itemId: z.uuid(),
 });
+export type StockIdParams = z.infer<typeof stockIdParamSchema>;
 
 export const stockInventoryParamSchema = z.object({
   inventoryId: z.uuid(),
 });
+export type StockInventoryParam = z.infer<typeof stockInventoryParamSchema>;
 
-export const stockItemParamSchema = z.object({
+export const stockByItemsParamSchema = z.object({
   itemId: z.uuid(),
 });
-
-export type StockSchema = z.infer<typeof stockSchema>;
-export type UpdateStock = z.infer<typeof updateStockSchema>;
-export type StockParams = z.infer<typeof stockParamSchema>;
+export type StockByItemsParam = z.infer<typeof stockByItemsParamSchema>;

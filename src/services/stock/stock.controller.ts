@@ -1,6 +1,7 @@
 import { StockService } from '@/services/stock/stock.service';
 import {
-  StockParams,
+  CreateStock,
+  StockIdParams,
   UpdateStock,
 } from '@57eme-regiment/renenutet-api-contract/schemas/stock.schema';
 import { FastifyReply, FastifyRequest } from 'fastify';
@@ -10,6 +11,15 @@ import { injectable } from 'tsyringe';
 @injectable()
 export class StockController {
   constructor(private readonly stockService: StockService) {}
+
+  /** Crée un nouveau stock pour un item dans un inventaire. */
+  async create(
+    req: FastifyRequest<{ Body: CreateStock }>,
+    reply: FastifyReply,
+  ) {
+    const stock = await this.stockService.create(req.body);
+    return reply.status(201).send(stock);
+  }
 
   /** Retourne la liste complète des stocks. */
   async getAll(_req: FastifyRequest, reply: FastifyReply) {
@@ -42,7 +52,7 @@ export class StockController {
    * @throws {AppError} 404 si le stock est introuvable.
    */
   async getByKey(
-    req: FastifyRequest<{ Params: StockParams }>,
+    req: FastifyRequest<{ Params: StockIdParams }>,
     reply: FastifyReply,
   ) {
     const stock = await this.stockService.getByKey(
@@ -56,11 +66,26 @@ export class StockController {
    * Met à jour le stock d'un item dans un inventaire.
    * @throws {AppError} 404 si le stock est introuvable.
    */
-  async update(
-    req: FastifyRequest<{ Params: StockParams; Body: UpdateStock }>,
+  async increment(
+    req: FastifyRequest<{ Params: StockIdParams; Body: UpdateStock }>,
     reply: FastifyReply,
   ) {
-    const stock = await this.stockService.update(
+    const stock = await this.stockService.increment(
+      req.params.itemId,
+      req.params.inventoryId,
+      req.body,
+    );
+    return reply.send(stock);
+  }
+  /**
+   * Met à jour le stock d'un item dans un inventaire.
+   * @throws {AppError} 404 si le stock est introuvable.
+   */
+  async decrement(
+    req: FastifyRequest<{ Params: StockIdParams; Body: UpdateStock }>,
+    reply: FastifyReply,
+  ) {
+    const stock = await this.stockService.decrement(
       req.params.itemId,
       req.params.inventoryId,
       req.body,

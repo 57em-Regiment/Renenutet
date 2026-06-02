@@ -1,0 +1,23 @@
+info:
+  name: Add Item to Stock
+  type: http
+  seq: 6
+
+http:
+  method: POST
+  url: "{{BaseUrl}}/api/stocks"
+  auth: inherit
+  body:
+    mode: json
+    json: |
+      {
+        "itemId": "{{itemId}}",
+        "inventoryId": "{{inventoryId}}",
+        "quantity": 0
+      }
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

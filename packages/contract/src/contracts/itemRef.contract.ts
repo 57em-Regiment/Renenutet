@@ -8,12 +8,16 @@ export const itemRefContract = c.router({
   createRange: {
     method: 'POST',
     path: '/api/itemRef/Range',
+    summary: 'Seed item references',
+    description: 'Bulk-creates item reference entries by UUID. Used to seed the item catalogue from Krang before creating stocks.',
     body: createItemRefSchema.array(),
     responses: { 201: itemRefSchema.array() },
   },
   drop: {
     method: 'DELETE',
     path: '/api/itemRef',
+    summary: 'Drop all item references',
+    description: 'Deletes all item reference entries. Intended for reseeding — use with caution as it will break existing stocks that reference these items.',
     responses: {
       204: z.null(),
     },

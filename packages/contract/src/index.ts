@@ -1,9 +1,11 @@
 export * from './contracts/inventory.contract';
 export * from './contracts/itemRef.contract';
 export * from './contracts/locationRef.contract';
+export * from './contracts/stock.contract';
 export * from './schemas/inventory.schema';
 export * from './schemas/itemRef.schema';
 export * from './schemas/locationRef.schema';
+export * from './schemas/stock.schema';
 
 import { initContract } from '@ts-rest/core';
 import { inventoryContract } from './contracts/inventory.contract';

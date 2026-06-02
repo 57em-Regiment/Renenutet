@@ -1,6 +1,9 @@
 import type { Stock } from '@/generated/client';
 import { AppError } from '@/shared/errors/appError';
-import { UpdateStock } from '@57eme-regiment/renenutet-api-contract/schemas/stock.schema';
+import {
+  CreateStock,
+  UpdateStock,
+} from '@57eme-regiment/renenutet-api-contract/schemas/stock.schema';
 import { injectable } from 'tsyringe';
 import { StockRepository } from './stock.repository';
 
@@ -8,6 +11,24 @@ import { StockRepository } from './stock.repository';
 @injectable()
 export class StockService {
   constructor(private readonly stockRepo: StockRepository) {}
+
+  /**
+   * Crée un stock pour un item dans un inventaire.
+   * @throws {AppError} 409 si le couple (itemId, inventoryId) existe déjà.
+   */
+  async create(data: CreateStock): Promise<Stock> {
+    const existing = await this.stockRepo.findByKeyOrThrow(
+      data.itemId,
+      data.inventoryId,
+    );
+    if (existing)
+      throw new AppError(
+        'Stock already exists for this item in this inventory',
+        409,
+        'STOCK_ALREADY_EXISTS',
+      );
+    return this.stockRepo.create(data);
+  }
 
   /** Retourne tous les stocks. */
   async getAll(): Promise<Stock[]> {
@@ -29,7 +50,7 @@ export class StockService {
    * @throws {AppError} 404 si le stock est introuvable.
    */
   async getByKey(itemId: string, inventoryId: string): Promise<Stock> {
-    const stock = await this.stockRepo.findByKey(itemId, inventoryId);
+    const stock = await this.stockRepo.findByKeyOrThrow(itemId, inventoryId);
     if (!stock) throw new AppError('Stock not found', 404, 'STOCK_NOT_FOUND');
     return stock;
   }
@@ -38,12 +59,24 @@ export class StockService {
    * Met à jour le stock d'un item dans un inventaire.
    * @throws {AppError} 404 si le stock est introuvable.
    */
-  async update(
+  async increment(
     itemId: string,
     inventoryId: string,
     data: UpdateStock,
   ): Promise<Stock> {
     await this.getByKey(itemId, inventoryId);
-    return this.stockRepo.update(itemId, inventoryId, data);
+    return this.stockRepo.increment(itemId, inventoryId, data);
+  }
+  /**
+   * Met à jour le stock d'un item dans un inventaire.
+   * @throws {AppError} 404 si le stock est introuvable.
+   */
+  async decrement(
+    itemId: string,
+    inventoryId: string,
+    data: UpdateStock,
+  ): Promise<Stock> {
+    await this.getByKey(itemId, inventoryId);
+    return this.stockRepo.decrement(itemId, inventoryId, data);
   }
 }
