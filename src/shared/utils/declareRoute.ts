@@ -22,7 +22,7 @@ export const HttpMethodSchema = z.enum(HttpMethod);
 export type ContractEndpoint = {
   method: HttpMethod;
   path: string;
-  body?: ZodType;
+  body?: ZodType | symbol; // symbol couvre ContractNoBodyType de ts-rest
   pathParams?: ZodType;
   responses: Record<number, ZodType>;
 };
@@ -49,7 +49,7 @@ export function declareRoute(
   const method = contract.method.toLowerCase() as Lowercase<HttpMethod>;
 
   const schema: Record<string, unknown> = { response: contract.responses };
-  if (contract.body) schema.body = contract.body;
+  if (contract.body && typeof contract.body !== 'symbol') schema.body = contract.body;
   if (contract.pathParams) schema.params = contract.pathParams;
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

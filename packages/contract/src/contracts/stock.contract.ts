@@ -12,18 +12,11 @@ import {
 const c = initContract();
 
 const errorSchema = z.object({ message: z.string(), error: z.string() });
-export const HttpMethod = {
-  GET: 'GET',
-  POST: 'POST',
-  PUT: 'PUT',
-  DELETE: 'DELETE',
-  PATCH: 'PATCH',
-} as const;
 
 export const stockContract = c.router(
   {
-    create: {
-      method: HttpMethod.POST,
+    create: c.mutation({
+      method: 'POST',
       path: '/',
       summary: 'Add an item to a stock',
       description:
@@ -33,16 +26,16 @@ export const stockContract = c.router(
         201: stockSchema,
         409: errorSchema,
       },
-    },
-    getAll: {
-      method: HttpMethod.GET,
+    }),
+    getAll: c.query({
+      method: 'GET',
       path: '/',
       summary: 'List all stocks',
       description: 'Returns every stock entry across all inventories.',
       responses: { 200: z.array(stockSchema) },
-    },
-    getByInventory: {
-      method: HttpMethod.GET,
+    }),
+    getByInventory: c.query({
+      method: 'GET',
       path: '/inventories/:inventoryId',
       summary: 'List stocks for an inventory',
       description:
@@ -52,9 +45,9 @@ export const stockContract = c.router(
         200: z.array(stockSchema),
         404: errorSchema,
       },
-    },
-    getByItems: {
-      method: HttpMethod.GET,
+    }),
+    getByItems: c.query({
+      method: 'GET',
       path: '/items/:itemId',
       summary: 'List stocks for an item',
       description:
@@ -64,9 +57,9 @@ export const stockContract = c.router(
         200: z.array(stockSchema),
         404: errorSchema,
       },
-    },
-    getStock: {
-      method: HttpMethod.GET,
+    }),
+    getStock: c.query({
+      method: 'GET',
       path: '/:inventoryId/:itemId',
       summary: 'Get a specific stock entry',
       description:
@@ -76,9 +69,9 @@ export const stockContract = c.router(
         200: stockSchema,
         404: errorSchema,
       },
-    },
-    increment: {
-      method: HttpMethod.POST,
+    }),
+    increment: c.mutation({
+      method: 'POST',
       path: '/:id',
       summary: 'Increment a stock quantity',
       description:
@@ -89,9 +82,9 @@ export const stockContract = c.router(
         200: stockSchema,
         404: errorSchema,
       },
-    },
-    decrement: {
-      method: HttpMethod.POST,
+    }),
+    decrement: c.mutation({
+      method: 'POST',
       path: '/:id',
       summary: 'Decrement a stock quantity',
       description:
@@ -102,7 +95,7 @@ export const stockContract = c.router(
         200: stockSchema,
         404: errorSchema,
       },
-    },
+    }),
   },
   { pathPrefix: '/api/stocks' },
 );

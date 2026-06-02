@@ -43,10 +43,10 @@ export function buildApp() {
     status: 'ok',
     timestamp: new Date().toISOString(),
   }));
-  app.register(inventoryRoutes, { prefix: '/api/inventories' });
-  app.register(stockRoutes, { prefix: '/api/stocks' });
-  app.register(itemRefRoutes, { prefix: '/api/itemRef' });
-  app.register(locationRefRoutes, { prefix: '/api/locationRef' });
+  app.register(inventoryRoutes);
+  app.register(stockRoutes);
+  app.register(itemRefRoutes);
+  app.register(locationRefRoutes);
 
   return app;
 }
