@@ -27,5 +27,5 @@ export const itemRefContract = c.router(
       },
     }),
   },
-  { pathPrefix: 'api/itemRef' },
+  { pathPrefix: '/api/itemRef' },
 );

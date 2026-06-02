@@ -1,10 +1,13 @@
 import { env } from '@/config/env';
 import { errorHandler } from '@/shared/errors/errorHandler';
 import cors from '@fastify/cors';
+import fastifySwagger from '@fastify/swagger';
 import {
+  jsonSchemaTransform,
   serializerCompiler,
   validatorCompiler,
 } from '@fastify/type-provider-zod';
+import apiReference from '@scalar/fastify-api-reference';
 import Fastify from 'fastify';
 import { logger } from './config/logger';
 import { inventoryRoutes } from './services/inventory/inventory.route';
@@ -38,6 +41,16 @@ export function buildApp() {
   app.setValidatorCompiler(validatorCompiler);
   app.setSerializerCompiler(serializerCompiler);
   app.setErrorHandler(errorHandler);
+
+  if (env.NODE_ENV !== 'production') {
+    app.register(fastifySwagger, {
+      openapi: {
+        info: { title: 'Renenutet API', version: '1.0.0' },
+      },
+      transform: jsonSchemaTransform,
+    });
+    app.register(apiReference, { routePrefix: '/docs' });
+  }
 
   app.get('/health', async () => ({
     status: 'ok',

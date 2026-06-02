@@ -15,10 +15,13 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"],
-      "@57eme-regiment/renenutet-api-contract": ["packages/contract/src/index.ts"],
+      "@57eme-regiment/renenutet-api-contract": [
+        "packages/contract/src/index.ts"
+      ],
       "@57eme-regiment/renenutet-api-contract/*": ["packages/contract/src/*"]
     }
   },
+  "files": ["src/shared/types/fastify.d.ts"],
   "include": ["src/**/*", "packages/contract/src/**/*"],
   "exclude": ["node_modules", "dist"]
 }
