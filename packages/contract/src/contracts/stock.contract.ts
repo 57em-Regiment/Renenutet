@@ -21,6 +21,7 @@ export const stockContract = c.router(
       summary: 'Add an item to a stock',
       description:
         'Creates a new stock entry for a given item in an inventory. Returns 409 if the item is already tracked in that inventory.',
+      metadata: { tags: ['Stock'] },
       body: createStockSchema,
       responses: {
         201: stockSchema,
@@ -32,6 +33,7 @@ export const stockContract = c.router(
       path: '/',
       summary: 'List all stocks',
       description: 'Returns every stock entry across all inventories.',
+      metadata: { tags: ['Stock'] },
       responses: { 200: z.array(stockSchema) },
     }),
     getByInventory: c.query({
@@ -40,6 +42,7 @@ export const stockContract = c.router(
       summary: 'List stocks for an inventory',
       description:
         'Returns all stock entries belonging to the given inventory. Returns 404 if the inventory does not exist.',
+      metadata: { tags: ['Stock'] },
       pathParams: stockInventoryParamSchema,
       responses: {
         200: z.array(stockSchema),
@@ -52,6 +55,7 @@ export const stockContract = c.router(
       summary: 'List stocks for an item',
       description:
         'Returns all stock entries for a given item across every inventory. Returns 404 if the item does not exist.',
+      metadata: { tags: ['Stock'] },
       pathParams: stockByItemsParamSchema,
       responses: {
         200: z.array(stockSchema),
@@ -64,6 +68,7 @@ export const stockContract = c.router(
       summary: 'Get a specific stock entry',
       description:
         'Returns the exact stock entry identified by the (inventoryId, itemId) composite key. Returns 404 if not found.',
+      metadata: { tags: ['Stock'] },
       pathParams: stockIdParamSchema,
       responses: {
         200: stockSchema,
@@ -76,6 +81,7 @@ export const stockContract = c.router(
       summary: 'Increment a stock quantity',
       description:
         'Increment the quantity of a stock entry identified by its composite key. Returns 404 if not found.',
+      metadata: { tags: ['Stock'] },
       pathParams: stockIdParamSchema,
       body: updateStockSchema,
       responses: {
@@ -89,6 +95,7 @@ export const stockContract = c.router(
       summary: 'Decrement a stock quantity',
       description:
         'Decrement the quantity of a stock entry identified by its composite key. Returns 404 if not found.',
+      metadata: { tags: ['Stock'] },
       pathParams: stockIdParamSchema,
       body: updateStockSchema,
       responses: {

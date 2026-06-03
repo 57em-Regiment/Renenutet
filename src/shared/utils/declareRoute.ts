@@ -25,6 +25,11 @@ export type ContractEndpoint = {
   body?: ZodType | symbol; // symbol couvre ContractNoBodyType de ts-rest
   pathParams?: ZodType;
   responses: Record<number, ZodType>;
+  summary?: string;
+  description?: string;
+  metadata?: {
+    tags?: string[];
+  };
 };
 
 type ZodServer = FastifyInstance<any, any, any, any, ZodTypeProvider>;
@@ -49,8 +54,12 @@ export function declareRoute(
   const method = contract.method.toLowerCase() as Lowercase<HttpMethod>;
 
   const schema: Record<string, unknown> = { response: contract.responses };
-  if (contract.body && typeof contract.body !== 'symbol') schema.body = contract.body;
+  if (contract.body && typeof contract.body !== 'symbol')
+    schema.body = contract.body;
   if (contract.pathParams) schema.params = contract.pathParams;
+  if (contract.summary) schema.summary = contract.summary;
+  if (contract.description) schema.description = contract.description;
+  if (contract.metadata?.tags) schema.tags = contract.metadata.tags;
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   (server[method] as any)(contract.path, { ...options, schema }, handler);

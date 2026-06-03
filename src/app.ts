@@ -3,7 +3,7 @@ import { errorHandler } from '@/shared/errors/errorHandler';
 import cors from '@fastify/cors';
 import fastifySwagger from '@fastify/swagger';
 import {
-  jsonSchemaTransform,
+  createJsonSchemaTransform,
   serializerCompiler,
   validatorCompiler,
 } from '@fastify/type-provider-zod';
@@ -43,13 +43,35 @@ export function buildApp() {
   app.setErrorHandler(errorHandler);
 
   if (env.NODE_ENV !== 'production') {
+    const baseTransform = createJsonSchemaTransform({});
     app.register(fastifySwagger, {
       openapi: {
         info: { title: 'Renenutet API', version: '1.0.0' },
       },
-      transform: jsonSchemaTransform,
+      transform: document => {
+        try {
+          return baseTransform(document);
+        } catch (err) {
+          logger.warn(
+            `[swagger] transform failed for ${document.url} — schema hidden. ${err}`,
+          );
+          return { schema: { hide: true }, url: document.url };
+        }
+      },
     });
-    app.register(apiReference, { routePrefix: '/docs' });
+    app.register(apiReference, {
+      routePrefix: '/docs',
+      configuration: {
+        hideClientButton: true,
+        hideDarkModeToggle: true,
+        hiddenClients: true,
+        metaData: {
+          title: 'Renenutet API docs',
+        },
+        operationTitleSource: 'summary',
+        persistAuth: true,
+      },
+    });
   }
 
   app.get('/health', async () => ({
@@ -60,6 +82,10 @@ export function buildApp() {
   app.register(stockRoutes);
   app.register(itemRefRoutes);
   app.register(locationRefRoutes);
+
+  app.get('/openapi.json', async (req, res) => {
+    return app.swagger();
+  });
 
   return app;
 }

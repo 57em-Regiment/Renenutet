@@ -12,6 +12,7 @@ export const itemRefContract = c.router(
       summary: 'Seed item references',
       description:
         'Bulk-creates item reference entries by UUID. Used to seed the item catalogue from Krang before creating stocks.',
+      metadata: { tags: ['Item References'] },
       body: createItemRefSchema.array(),
       responses: { 201: itemRefSchema.array() },
     }),
@@ -21,6 +22,7 @@ export const itemRefContract = c.router(
       summary: 'Drop all item references',
       description:
         'Deletes all item reference entries. Intended for reseeding — use with caution as it will break existing stocks that reference these items.',
+      metadata: { tags: ['Item References'] },
       body: c.noBody(),
       responses: {
         204: z.null(),
