@@ -1,4 +1,4 @@
-import { AppError } from '@/shared/errors/appError';
+import { AppError } from '@57eme-regiment/nabu-errors';
 import type {
   CreateInventory,
   Inventory,

@@ -14,6 +14,15 @@ importers:
       '@57eme-regiment/auth-server':
         specifier: portal:../../../wan-shi-tong/packages/auth-server
         version: link:../wan-shi-tong/packages/auth-server
+      '@57eme-regiment/nabu-errors':
+        specifier: portal:./nabu/packages/errors
+        version: link:portal:./nabu/packages/errors
+      '@57eme-regiment/nabu-fastify':
+        specifier: portal:./nabu/packages/fastify
+        version: link:portal:./nabu/packages/fastify
+      '@57eme-regiment/nabu-logger':
+        specifier: portal:./nabu/packages/logger
+        version: link:portal:./nabu/packages/logger
       '@57eme-regiment/renenutet-api-contract':
         specifier: workspace:*
         version: link:packages/contract

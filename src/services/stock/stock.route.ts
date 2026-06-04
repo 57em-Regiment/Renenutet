@@ -1,9 +1,9 @@
 import { container } from '@/infrastructure/container';
-import { declareRoute } from '@/shared/utils/declareRoute';
 import { stockContract } from '@57eme-regiment/renenutet-api-contract';
 import { ZodTypeProvider } from '@fastify/type-provider-zod';
 import type { FastifyInstance } from 'fastify';
 import { StockController } from './stock.controller';
+
 
 export async function stockRoutes(app: FastifyInstance) {
   const ctrl = container.resolve(StockController);

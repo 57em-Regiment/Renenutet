@@ -1,5 +1,5 @@
 import type { Stock } from '@/generated/client';
-import { AppError } from '@/shared/errors/appError';
+import { AppError } from '@57eme-regiment/nabu-errors';
 import {
   CreateStock,
   UpdateStock,
