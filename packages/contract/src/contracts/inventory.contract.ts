@@ -1,6 +1,7 @@
 import { initContract } from '@ts-rest/core';
 import { z } from 'zod';
 import {
+  InventoryDetailsSchema,
   InventorySchema,
   createInventorySchema,
   inventoryParamsSchema,
@@ -11,6 +12,14 @@ const c = initContract();
 
 export const inventoryContract = c.router(
   {
+    getInventoriesList: c.query({
+      method: 'GET',
+      path: '/ids',
+      summary: 'List all inventories id',
+      description: 'Returns the complete list of inventories id',
+      metadata: { tags: ['Inventory'] },
+      responses: { 200: z.array(inventoryParamsSchema) },
+    }),
     getAll: c.query({
       method: 'GET',
       path: '/',
@@ -20,7 +29,7 @@ export const inventoryContract = c.router(
       metadata: { tags: ['Inventory'] },
       responses: { 200: z.array(InventorySchema) },
     }),
-    getById: c.query({
+    getInventoryDetails: c.query({
       method: 'GET',
       path: '/:id',
       summary: 'Get an inventory by ID',
@@ -29,7 +38,7 @@ export const inventoryContract = c.router(
       metadata: { tags: ['Inventory'] },
       pathParams: inventoryParamsSchema,
       responses: {
-        200: InventorySchema,
+        200: InventoryDetailsSchema,
         404: z.object({ message: z.string(), error: z.string() }),
       },
     }),

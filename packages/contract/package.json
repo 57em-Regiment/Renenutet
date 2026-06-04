@@ -4,6 +4,7 @@
   "description": "Renenutet API contract — shared between server and consumers",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "module": "ESNext",
   "files": [
     "dist"
   ],

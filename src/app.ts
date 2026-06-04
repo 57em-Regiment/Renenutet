@@ -42,6 +42,18 @@ export function buildApp() {
   app.setSerializerCompiler(serializerCompiler);
   app.setErrorHandler(errorHandler);
 
+  if (env.ALLOWED_HOST) {
+    app.addHook('onRequest', (request, reply, done) => {
+      const host = request.headers.host ?? '';
+      const hostname = host.split(':')[0];
+      if (hostname !== env.ALLOWED_HOST) {
+        reply.code(404).send();
+        return;
+      }
+      done();
+    });
+  }
+
   if (env.NODE_ENV !== 'production') {
     const baseTransform = createJsonSchemaTransform({});
     app.register(fastifySwagger, {

@@ -1,18 +1,35 @@
-import type { CreateInventory, Inventory, UpdateInventory } from '@57eme-regiment/renenutet-api-contract';
 import { AppError } from '@/shared/errors/appError';
+import type {
+  CreateInventory,
+  Inventory,
+  InventoryDetails,
+  UpdateInventory,
+} from '@57eme-regiment/renenutet-api-contract';
 import { injectable } from 'tsyringe';
 import { InventoryRepository } from './inventory.repository';
 
 /** Service métier pour la gestion des inventaires. */
 @injectable()
 export class InventoryService {
-  constructor(
-    private readonly inventoryRepo: InventoryRepository,
-  ) {}
+  constructor(private readonly inventoryRepo: InventoryRepository) {}
 
-  /** Retourne tous les inventaires. */
+  /** Retourne tous les id de tous les inventaires. */
   async getAll(): Promise<Inventory[]> {
-    return this.inventoryRepo.findAll();
+    return this.inventoryRepo.findAll({ select: { id: true } });
+  }
+
+  /**
+   * Retourne un inventaire et tout ces details par son identifiant.
+   * @throws {AppError} 404 si l'inventaire est introuvable.
+   */
+  async getInventoryDetails(id: string): Promise<InventoryDetails> {
+    const inventory = await this.inventoryRepo.findByIdOrThrow(id);
+    if (!inventory)
+      throw new AppError('Inventory not found', 404, 'INVENTORY_NOT_FOUND');
+
+    return {
+      ...inventory,
+    } as InventoryDetails;
   }
 
   /**
@@ -20,8 +37,9 @@ export class InventoryService {
    * @throws {AppError} 404 si l'inventaire est introuvable.
    */
   async getById(id: string): Promise<Inventory> {
-    const inventory = await this.inventoryRepo.findById(id);
-    if (!inventory) throw new AppError('Inventory not found', 404, 'INVENTORY_NOT_FOUND');
+    const inventory = await this.inventoryRepo.findByIdOrThrow(id);
+    if (!inventory)
+      throw new AppError('Inventory not found', 404, 'INVENTORY_NOT_FOUND');
     return inventory;
   }
 

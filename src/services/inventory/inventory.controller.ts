@@ -13,6 +13,12 @@ export class InventoryController {
   constructor(private readonly inventoryService: InventoryService) {}
 
   /** Retourne la liste complète des inventaires. */
+  async getInventoriesList(_req: FastifyRequest, reply: FastifyReply) {
+    const inventories = await this.inventoryService.getAll();
+    return reply.send(inventories);
+  }
+
+  /** Retourne la liste complète des inventaires. */
   async getAll(_req: FastifyRequest, reply: FastifyReply) {
     const inventories = await this.inventoryService.getAll();
     return reply.send(inventories);
@@ -22,11 +28,13 @@ export class InventoryController {
    * Retourne un inventaire par son id.
    * @throws {AppError} 404 si l'inventaire est introuvable.
    */
-  async getById(
+  async getInventoryDetails(
     req: FastifyRequest<{ Params: InventoryParams }>,
     reply: FastifyReply,
   ) {
-    const inventory = await this.inventoryService.getById(req.params.id);
+    const inventory = await this.inventoryService.getInventoryDetails(
+      req.params.id,
+    );
     return reply.send(inventory);
   }
 

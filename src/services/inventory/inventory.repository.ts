@@ -1,3 +1,4 @@
+import { InventorySelect } from '@/generated/models';
 import { Database } from '@/infrastructure/database';
 import type {
   CreateInventory,
@@ -12,13 +13,15 @@ export class InventoryRepository {
   constructor(private readonly db: Database) {}
 
   /** Retourne tous les inventaires. */
-  findAll(): Promise<Inventory[]> {
-    return this.db.context.inventory.findMany({});
+  findAll({ select }: { select: InventorySelect }): Promise<Inventory[]> {
+    return this.db.context.inventory.findMany({
+      ...(select && { select }),
+    });
   }
 
   /** Retourne un inventaire par son id, ou `null` s'il est introuvable. */
-  findById(id: string): Promise<Inventory | null> {
-    return this.db.context.inventory.findUnique({ where: { id } });
+  findByIdOrThrow(id: string): Promise<Inventory | null> {
+    return this.db.context.inventory.findUniqueOrThrow({ where: { id } });
   }
 
   /** Persiste un nouvel inventaire. */
