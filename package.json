@@ -21,9 +21,9 @@
   "dependencies": {
     "@57eme-regiment/auth-contracts": "portal:../../../wan-shi-tong/packages/auth-contracts",
     "@57eme-regiment/auth-server": "portal:../../../wan-shi-tong/packages/auth-server",
-    "@57eme-regiment/nabu-errors": "portal:./vendor/nabu/packages/errors",
-    "@57eme-regiment/nabu-fastify": "portal:./vendor/nabu/packages/fastify",
-    "@57eme-regiment/nabu-logger": "portal:./vendor/nabu/packages/logger",
+    "@57eme-regiment/nabu-errors": "portal:./nabu/packages/errors",
+    "@57eme-regiment/nabu-fastify": "portal:./nabu/packages/fastify",
+    "@57eme-regiment/nabu-logger": "portal:./nabu/packages/logger",
     "@57eme-regiment/renenutet-api-contract": "workspace:*",
     "@fastify/cors": "^11.2.0",
     "@fastify/swagger": "^9.7.0",
