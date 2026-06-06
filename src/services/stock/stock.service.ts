@@ -19,7 +19,7 @@ export class StockService {
    * @throws {AppError} 409 si le couple (itemId, inventoryId) existe déjà.
    */
   async create(data: CreateStock): Promise<Stock> {
-    const existing = await this.stockRepo.findByKeyOrThrow(
+    const existing = await this.stockRepo.findByKey(
       data.itemId,
       data.inventoryId,
     );

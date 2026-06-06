@@ -25,6 +25,14 @@ export class StockRepository {
    * Retourne le stock d'un item dans un inventaire via la clé composite,
    * ou `null` s'il est introuvable.
    */
+  findByKey(itemId: string, inventoryId: string): Promise<Stock | null> {
+    return this.db.context.stock.findUnique({
+      where: { itemId_inventoryId: { itemId, inventoryId } },
+    });
+  }
+  /**
+   * Retourne le stock d'un item dans un inventaire via la clé composite,
+   */
   findByKeyOrThrow(itemId: string, inventoryId: string): Promise<Stock | null> {
     return this.db.context.stock.findUniqueOrThrow({
       where: { itemId_inventoryId: { itemId, inventoryId } },
