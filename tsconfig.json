@@ -30,6 +30,6 @@
     }
   },
   "files": ["src/shared/types/fastify.d.ts"],
-  "include": ["src/**/*", "packages/contract/src/**/*", "../Krang/API/packages/contract/src/**/*"],
+  "include": ["src/**/*", "packages/contract/src/**/*"],
   "exclude": ["node_modules", "dist"]
 }

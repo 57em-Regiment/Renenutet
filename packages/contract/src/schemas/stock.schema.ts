@@ -16,12 +16,12 @@ export type StockDetails = z.infer<typeof stockDetailsSchema>;
 export const createStockSchema = z.object({
   itemId: z.uuid(),
   inventoryId: z.uuid(),
-  quantity: z.number().int().nonnegative().optional().default(0),
+  quantity: z.number().int().positive(),
 });
 export type CreateStock = z.infer<typeof createStockSchema>;
 
 export const updateStockSchema = z.object({
-  quantity: z.number().int().optional(),
+  quantity: z.number().int().positive(),
 });
 export type UpdateStock = z.infer<typeof updateStockSchema>;
 

@@ -78,7 +78,7 @@ export const stockContract = c.router(
     }),
     increment: c.mutation({
       method: 'POST',
-      path: '/:id/increment',
+      path: '/:inventoryId/:itemId/increment',
       summary: 'Increment a stock quantity',
       description:
         'Increment the quantity of a stock entry identified by its composite key. Returns 404 if not found.',
@@ -92,7 +92,7 @@ export const stockContract = c.router(
     }),
     decrement: c.mutation({
       method: 'POST',
-      path: '/:id/decrement',
+      path: '/:inventoryId/:itemId/decrement',
       summary: 'Decrement a stock quantity',
       description:
         'Decrement the quantity of a stock entry identified by its composite key. Returns 404 if not found.',

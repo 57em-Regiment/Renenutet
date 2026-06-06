@@ -53,7 +53,7 @@ export class StockService {
       } satisfies StockDetails;
     });
 
-    return { ...bodyResponse };
+    return bodyResponse;
   }
 
   /** Retourne tous les stocks pour un item donné. */

@@ -1,7 +1,7 @@
 import { UserSchema } from '@57eme-regiment/auth-contracts';
 import { LocationNamesSchema } from '@57eme-regiment/krang-api-contract';
 import { z } from 'zod';
-import { stockSchema } from './stock.schema';
+import { stockDetailsSchema } from './stock.schema';
 
 export const InventorySchema = z.object({
   id: z.uuid(),
@@ -20,7 +20,7 @@ export const InventoryDetailsSchema = z.object({
   owner: UserSchema,
   createdAt: z.coerce.date(),
   updatedAt: z.coerce.date(),
-  stocks: stockSchema.array(),
+  stocks: stockDetailsSchema.array(),
 });
 
 export const createInventorySchema = z.object({
