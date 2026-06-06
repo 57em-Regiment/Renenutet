@@ -3,6 +3,7 @@ import { z } from 'zod';
 import {
   createStockSchema,
   stockByItemsParamSchema,
+  stockDetailsSchema,
   stockIdParamSchema,
   stockInventoryParamSchema,
   stockSchema,
@@ -45,7 +46,7 @@ export const stockContract = c.router(
       metadata: { tags: ['Stock'] },
       pathParams: stockInventoryParamSchema,
       responses: {
-        200: z.array(stockSchema),
+        200: z.array(stockDetailsSchema),
         404: errorSchema,
       },
     }),

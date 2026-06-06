@@ -1,7 +1,9 @@
 import type { Stock } from '@/generated/client';
+import { krangApi } from '@/lib/api-client';
 import { AppError } from '@57eme-regiment/nabu-errors';
 import {
   CreateStock,
+  StockDetails,
   UpdateStock,
 } from '@57eme-regiment/renenutet-api-contract/schemas/stock.schema';
 import { injectable } from 'tsyringe';
@@ -36,8 +38,22 @@ export class StockService {
   }
 
   /** Retourne tous les stocks d'un inventaire donné. */
-  getByInventory(inventoryId: string): Promise<Stock[]> {
-    return this.stockRepo.findByInventory(inventoryId);
+  async getByInventory(inventoryId: string): Promise<StockDetails[]> {
+    const stocks = await this.stockRepo.findByInventory(inventoryId);
+
+    const itemResponse = await krangApi.item.getAll();
+    if (itemResponse.status != 200)
+      throw new AppError('Failed to fetch items', 400, 'ITEMS_FETCH_FAILED');
+
+    const bodyResponse = stocks.map(stock => {
+      const currentItem = itemResponse.body.find(i => i.id == stock.itemId);
+      return {
+        ...stock,
+        item: { ...currentItem },
+      } satisfies StockDetails;
+    });
+
+    return { ...bodyResponse };
   }
 
   /** Retourne tous les stocks pour un item donné. */

@@ -3,10 +3,7 @@ import { declareRoute } from '@57eme-regiment/nabu-fastify';
 import { inventoryContract } from '@57eme-regiment/renenutet-api-contract';
 import { ZodTypeProvider } from '@fastify/type-provider-zod';
 import type { FastifyInstance } from 'fastify';
-import { z } from 'zod';
 import { InventoryController } from './inventory.controller';
-
-const errorSchema = z.object({ message: z.string(), error: z.string() });
 
 export async function inventoryRoutes(app: FastifyInstance) {
   const ctrl = container.resolve(InventoryController);

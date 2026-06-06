@@ -9,11 +9,14 @@ importers:
   .:
     dependencies:
       '@57eme-regiment/auth-contracts':
-        specifier: portal:../../../wan-shi-tong/packages/auth-contracts
+        specifier: link:../wan-shi-tong/packages/auth-contracts
         version: link:../wan-shi-tong/packages/auth-contracts
       '@57eme-regiment/auth-server':
-        specifier: portal:../../../wan-shi-tong/packages/auth-server
+        specifier: link:../wan-shi-tong/packages/auth-server
         version: link:../wan-shi-tong/packages/auth-server
+      '@57eme-regiment/krang-api-contract':
+        specifier: link:../Krang/API/packages/contract
+        version: link:../Krang/API/packages/contract
       '@57eme-regiment/nabu-errors':
         specifier: link:../Renenutet/nabu/packages/errors
         version: link:nabu/packages/errors
@@ -44,6 +47,9 @@ importers:
       '@scalar/fastify-api-reference':
         specifier: ^1.57.5
         version: 1.57.5
+      '@ts-rest/core':
+        specifier: 3.53.0-rc.1
+        version: 3.53.0-rc.1(@types/node@22.19.19)
       fastify:
         specifier: ^5.8.5
         version: 5.8.5

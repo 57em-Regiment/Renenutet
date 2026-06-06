@@ -1,3 +1,4 @@
+import { ItemSchema } from '@57eme-regiment/krang-api-contract';
 import { z } from 'zod';
 
 export const stockSchema = z.object({
@@ -7,6 +8,10 @@ export const stockSchema = z.object({
   updatedAt: z.coerce.date(),
 });
 export type StockSchema = z.infer<typeof stockSchema>;
+export const stockDetailsSchema = stockSchema.extend({
+  item: ItemSchema.partial(),
+});
+export type StockDetails = z.infer<typeof stockDetailsSchema>;
 
 export const createStockSchema = z.object({
   itemId: z.uuid(),

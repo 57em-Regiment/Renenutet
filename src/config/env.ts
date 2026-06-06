@@ -17,6 +17,7 @@ const envSchema = z.object({
   DATABASE_URL: z.url(),
 
   WANSHITONG_SERVICE_URL: z.url(),
+  KRANG_SERVICE_URL: z.url(),
 });
 
 export const env = envSchema.parse(process.env);

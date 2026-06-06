@@ -1,3 +1,4 @@
+import { krangApi, wanUserApi } from '@/lib/api-client';
 import { AppError } from '@57eme-regiment/nabu-errors';
 import type {
   CreateInventory,
@@ -6,12 +7,16 @@ import type {
   UpdateInventory,
 } from '@57eme-regiment/renenutet-api-contract';
 import { injectable } from 'tsyringe';
+import { StockService } from '../stock/stock.service';
 import { InventoryRepository } from './inventory.repository';
 
 /** Service métier pour la gestion des inventaires. */
 @injectable()
 export class InventoryService {
-  constructor(private readonly inventoryRepo: InventoryRepository) {}
+  constructor(
+    private readonly inventoryRepo: InventoryRepository,
+    private readonly stockService: StockService,
+  ) {}
 
   /** Retourne tous les id de tous les inventaires. */
   async getAll(): Promise<Inventory[]> {
@@ -26,10 +31,37 @@ export class InventoryService {
     const inventory = await this.inventoryRepo.findByIdOrThrow(id);
     if (!inventory)
       throw new AppError('Inventory not found', 404, 'INVENTORY_NOT_FOUND');
+    if (!inventory.ownerId)
+      throw new AppError(
+        'Inventory owner not defined',
+        404,
+        'INVENTORY_NOT_FOUND',
+      );
+
+    const owner = await wanUserApi.getById({
+      params: {
+        userId: inventory.ownerId,
+      },
+    });
+    if (owner.status != 200)
+      throw new AppError('User not found', 404, 'USER_NOT_FOUND');
+
+    const location = await krangApi.location.getNames({
+      params: { id: inventory.locationId },
+    });
+    if (location.status != 200)
+      throw new AppError('Location not found', 404, 'LOCATION_NOT_FOUND');
+
+    const stocksByInventory = await this.stockService.getByInventory(
+      inventory.id,
+    );
 
     return {
       ...inventory,
-    } as InventoryDetails;
+      owner: owner.body,
+      location: location.body,
+      stocks: stocksByInventory,
+    };
   }
 
   /**
