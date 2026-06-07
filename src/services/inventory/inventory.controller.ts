@@ -61,7 +61,10 @@ export class InventoryController {
     req: FastifyRequest<{ Params: InventoryParams; Body: UpdateInventoryCode }>,
     reply: FastifyReply,
   ) {
-    const code = await this.inventoryService.updateCode(req.params.id, req.body);
+    const code = await this.inventoryService.updateCode(
+      req.params.id,
+      req.body,
+    );
     return reply.send(code);
   }
 
