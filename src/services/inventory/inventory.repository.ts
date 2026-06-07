@@ -3,7 +3,9 @@ import { Database } from '@/infrastructure/database';
 import type {
   CreateInventory,
   Inventory,
+  InventoryCode,
   UpdateInventory,
+  UpdateInventoryCode,
 } from '@57eme-regiment/renenutet-api-contract';
 import { injectable } from 'tsyringe';
 
@@ -22,6 +24,28 @@ export class InventoryRepository {
   /** Retourne un inventaire par son id, ou `null` s'il est introuvable. */
   findByIdOrThrow(id: string): Promise<Inventory | null> {
     return this.db.context.inventory.findUniqueOrThrow({ where: { id } });
+  }
+
+  /**
+   * Retourne le code d'un inventaire par l'id de l'inventaire.
+   */
+  async getInventoryCodeAsync(
+    id: string,
+  ): Promise<InventoryCode | undefined | null> {
+    const inventory = await this.db.context.inventory.findUniqueOrThrow({
+      where: { id },
+    });
+
+    if (!inventory) return undefined;
+    return { code: inventory.accessCode ?? null };
+  }
+
+  /** Met à jour le code d'accès d'un inventaire. */
+  updateCode(id: string, { code }: UpdateInventoryCode): Promise<Inventory> {
+    return this.db.context.inventory.update({
+      where: { id },
+      data: { accessCode: code },
+    });
   }
 
   /** Persiste un nouvel inventaire. */

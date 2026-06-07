@@ -5,7 +5,7 @@ model Stock {
   item   ref_item? @relation(fields: [itemId], references: [id])
 
   inventoryId String
-  inventory   Inventory @relation(fields: [inventoryId], references: [id])
+  inventory   Inventory @relation(fields: [inventoryId], references: [id], onDelete: Cascade)
 
   updatedAt DateTime @updatedAt
 

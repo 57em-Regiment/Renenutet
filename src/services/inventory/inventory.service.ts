@@ -3,8 +3,10 @@ import { AppError } from '@57eme-regiment/nabu-errors';
 import type {
   CreateInventory,
   Inventory,
+  InventoryCode,
   InventoryDetails,
   UpdateInventory,
+  UpdateInventoryCode,
 } from '@57eme-regiment/renenutet-api-contract';
 import { injectable } from 'tsyringe';
 import { StockService } from '../stock/stock.service';
@@ -62,6 +64,29 @@ export class InventoryService {
       location: location.body,
       stocks: stocksByInventory,
     };
+  }
+
+  /**
+   * Retourne le code d'un inventaire par l'id de l'inventaire.
+   * @throws {AppError} 404 si l'inventaire est introuvable.
+   */
+  async getInventoryCode(id: string): Promise<InventoryCode> {
+    const code = await this.inventoryRepo.getInventoryCodeAsync(id);
+    if (code === undefined)
+      throw new AppError('Inventory not found', 404, 'INVENTORY_NOT_FOUND');
+
+    if (code === null) return { code: null };
+
+    return code;
+  }
+
+  /**
+   * Met à jour le code d'accès d'un inventaire.
+   * @throws {AppError} 404 si l'inventaire est introuvable.
+   */
+  async updateCode(id: string, data: UpdateInventoryCode): Promise<void> {
+    await this.getById(id);
+    await this.inventoryRepo.updateCode(id, data);
   }
 
   /**

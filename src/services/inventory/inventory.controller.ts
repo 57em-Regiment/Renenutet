@@ -3,6 +3,7 @@ import type {
   CreateInventory,
   InventoryParams,
   UpdateInventory,
+  UpdateInventoryCode,
 } from '@57eme-regiment/renenutet-api-contract';
 import type { FastifyReply, FastifyRequest } from 'fastify';
 import { injectable } from 'tsyringe';
@@ -36,6 +37,32 @@ export class InventoryController {
       req.params.id,
     );
     return reply.send(inventory);
+  }
+
+  /**
+   * Retourne le code d'un inventaire par l'id de l'inventaire.
+   * @throws {AppError} 404 si l'inventaire est introuvable.
+   */
+  async getInventoryCode(
+    req: FastifyRequest<{ Params: InventoryParams }>,
+    reply: FastifyReply,
+  ) {
+    const inventory = await this.inventoryService.getInventoryCode(
+      req.params.id,
+    );
+    return reply.send(inventory);
+  }
+
+  /**
+   * Met à jour le code d'accès d'un inventaire.
+   * @throws {AppError} 404 si l'inventaire est introuvable.
+   */
+  async updateCode(
+    req: FastifyRequest<{ Params: InventoryParams; Body: UpdateInventoryCode }>,
+    reply: FastifyReply,
+  ) {
+    const code = await this.inventoryService.updateCode(req.params.id, req.body);
+    return reply.send(code);
   }
 
   /** Crée un nouvel inventaire et retourne la ressource créée (201). */

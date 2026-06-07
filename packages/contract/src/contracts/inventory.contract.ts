@@ -1,10 +1,12 @@
 import { initContract } from '@ts-rest/core';
 import { z } from 'zod';
 import {
+  InventoryCodeSchema,
   InventoryDetailsSchema,
   InventorySchema,
   createInventorySchema,
   inventoryParamsSchema,
+  updateInventoryCodeSchema,
   updateInventorySchema,
 } from '../schemas/inventory.schema';
 
@@ -39,6 +41,33 @@ export const inventoryContract = c.router(
       pathParams: inventoryParamsSchema,
       responses: {
         200: InventoryDetailsSchema,
+        404: z.object({ message: z.string(), error: z.string() }),
+      },
+    }),
+    getInventoryCode: c.query({
+      method: 'GET',
+      path: '/:id/code',
+      summary: 'Get an inventory code',
+      description:
+        'Returns a code inventory with inventory UUID. Returns 404 if not found.',
+      metadata: { tags: ['Inventory'] },
+      pathParams: inventoryParamsSchema,
+      responses: {
+        200: InventoryCodeSchema,
+        404: z.object({ message: z.string(), error: z.string() }),
+      },
+    }),
+    updateCode: c.mutation({
+      method: 'PATCH',
+      path: '/:id/code',
+      summary: 'Update an inventory code',
+      description:
+        'Updates the access code of an existing inventory. Pass `null` to remove it. Returns 404 if not found.',
+      metadata: { tags: ['Inventory'] },
+      pathParams: inventoryParamsSchema,
+      body: updateInventoryCodeSchema,
+      responses: {
+        200: z.null(),
         404: z.object({ message: z.string(), error: z.string() }),
       },
     }),

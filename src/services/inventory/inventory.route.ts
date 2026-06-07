@@ -20,6 +20,12 @@ export async function inventoryRoutes(app: FastifyInstance) {
     inventoryContract.getInventoryDetails,
     ctrl.getInventoryDetails.bind(ctrl),
   );
+  declareRoute(
+    server,
+    inventoryContract.getInventoryCode,
+    ctrl.getInventoryCode.bind(ctrl),
+  );
+  declareRoute(server, inventoryContract.updateCode, ctrl.updateCode.bind(ctrl));
   declareRoute(server, inventoryContract.create, ctrl.create.bind(ctrl));
   declareRoute(server, inventoryContract.update, ctrl.update.bind(ctrl));
   declareRoute(server, inventoryContract.delete, ctrl.delete.bind(ctrl));
