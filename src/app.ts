@@ -12,6 +12,7 @@ import Fastify from 'fastify';
 import { logger } from './config/logger';
 import { inventoryRoutes } from './services/inventory/inventory.route';
 import { itemRefRoutes } from './services/itemRef/itemRef.route';
+import { locationRoutes } from './services/location/location.route';
 import { locationRefRoutes } from './services/locationRef/locationRef.route';
 import { stockRoutes } from './services/stock/stock.route';
 
@@ -94,6 +95,7 @@ export function buildApp() {
   app.register(stockRoutes);
   app.register(itemRefRoutes);
   app.register(locationRefRoutes);
+  app.register(locationRoutes);
 
   app.get('/openapi.json', async (req, res) => {
     return app.swagger();
