@@ -35,7 +35,7 @@ export const stockContract = c.router(
       summary: 'List all stocks',
       description: 'Returns every stock entry across all inventories.',
       metadata: { tags: ['Stock'] },
-      responses: { 200: z.array(stockSchema) },
+      responses: { 200: z.array(stockDetailsSchema) },
     }),
     getByInventory: c.query({
       method: 'GET',

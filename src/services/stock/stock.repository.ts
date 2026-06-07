@@ -1,4 +1,5 @@
 import { Stock } from '@/generated/client';
+import { StockGetPayload } from '@/generated/models';
 import { Database } from '@/infrastructure/database';
 import {
   CreateStock,
@@ -17,8 +18,12 @@ export class StockRepository {
   }
 
   /** Retourne tous les stocks. */
-  findAll(): Promise<Stock[]> {
-    return this.db.context.stock.findMany({});
+  findAll(): Promise<
+    StockGetPayload<{ include: { productionRequest: true } }>[]
+  > {
+    return this.db.context.stock.findMany({
+      include: { productionRequest: true },
+    });
   }
 
   /**
@@ -40,8 +45,13 @@ export class StockRepository {
   }
 
   /** Retourne tous les stocks associés à un inventaire. */
-  findByInventory(inventoryId: string): Promise<Stock[]> {
-    return this.db.context.stock.findMany({ where: { inventoryId } });
+  findByInventory(
+    inventoryId: string,
+  ): Promise<StockGetPayload<{ include: { productionRequest: true } }>[]> {
+    return this.db.context.stock.findMany({
+      where: { inventoryId },
+      include: { productionRequest: true },
+    });
   }
 
   /** Retourne tous les stocks associés à un item. */

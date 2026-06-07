@@ -1,13 +1,16 @@
 model Stock {
-  quantity Int @default(0)
+  quantity          Int  @default(0)
+  minimumQuantity   Int?
 
-  itemId String
-  item   ref_item? @relation(fields: [itemId], references: [id])
+  itemId            String
+  item              ref_item? @relation(fields: [itemId], references: [id])
 
-  inventoryId String
-  inventory   Inventory @relation(fields: [inventoryId], references: [id], onDelete: Cascade)
+  inventoryId       String
+  inventory         Inventory @relation(fields: [inventoryId], references: [id], onDelete: Cascade)
 
-  updatedAt DateTime @updatedAt
+  updatedAt         DateTime @updatedAt
+
+  productionRequest ProductionRequest[]
 
   @@id([itemId, inventoryId])
 }

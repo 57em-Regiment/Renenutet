@@ -6,10 +6,23 @@ export const stockSchema = z.object({
   itemId: z.uuid(),
   inventoryId: z.uuid(),
   updatedAt: z.coerce.date(),
+  minimumQuantity: z.number().nullable(),
 });
 export type StockSchema = z.infer<typeof stockSchema>;
+
+export const productionRequestSchema = z.object({
+  id: z.uuid(),
+  itemId: z.uuid(),
+  inventoryId: z.uuid().nullable().optional(),
+  quantity: z.number(),
+  createdAt: z.coerce.date(),
+  updatedAt: z.coerce.date(),
+});
+export type RroductionRequest = z.infer<typeof productionRequestSchema>;
+
 export const stockDetailsSchema = stockSchema.extend({
   item: ItemSchema.partial(),
+  productionRequest: productionRequestSchema.partial().array().optional(),
 });
 export type StockDetails = z.infer<typeof stockDetailsSchema>;
 

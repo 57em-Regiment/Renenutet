@@ -38,7 +38,7 @@ export type UpdateInventoryCode = z.infer<typeof updateInventoryCodeSchema>;
 
 export const createInventorySchema = z.object({
   name: z.string(),
-  accessCode: z.string().optional(),
+  accessCode: z.string(),
   locationId: z.string().optional(),
   ownerId: z.string().optional(),
 });

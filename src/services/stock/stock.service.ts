@@ -1,4 +1,5 @@
 import type { Stock } from '@/generated/client';
+import { StockGetPayload } from '@/generated/models';
 import { krangApi } from '@/lib/api-client';
 import { AppError } from '@57eme-regiment/nabu-errors';
 import {
@@ -33,27 +34,35 @@ export class StockService {
   }
 
   /** Retourne tous les stocks. */
-  async getAll(): Promise<Stock[]> {
-    return this.stockRepo.findAll();
+  async getAll(): Promise<StockDetails[]> {
+    const stocks = await this.stockRepo.findAll();
+    return this.enrichWithItems(stocks);
   }
 
   /** Retourne tous les stocks d'un inventaire donné. */
   async getByInventory(inventoryId: string): Promise<StockDetails[]> {
     const stocks = await this.stockRepo.findByInventory(inventoryId);
+    return this.enrichWithItems(stocks);
+  }
 
+  private async enrichWithItems(
+    stocks: StockGetPayload<{ include: { productionRequest: true } }>[],
+  ): Promise<StockDetails[]> {
     const itemResponse = await krangApi.item.getAll();
-    if (itemResponse.status != 200)
+    if (itemResponse.status !== 200)
       throw new AppError('Failed to fetch items', 400, 'ITEMS_FETCH_FAILED');
 
-    const bodyResponse = stocks.map(stock => {
-      const currentItem = itemResponse.body.find(i => i.id == stock.itemId);
-      return {
-        ...stock,
-        item: { ...currentItem },
-      } satisfies StockDetails;
-    });
+    const itemsById = new Map(itemResponse.body.map(i => [i.id, i]));
 
-    return bodyResponse;
+    return stocks.map(
+      stock =>
+        ({
+          ...stock,
+          minimumQuantity: stock.minimumQuantity,
+          item: { ...itemsById.get(stock.itemId) },
+          productionRequest: stock.productionRequest,
+        }) satisfies StockDetails,
+    );
   }
 
   /** Retourne tous les stocks pour un item donné. */
