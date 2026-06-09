@@ -21,8 +21,11 @@ export class InventoryService {
   ) {}
 
   /** Retourne tous les id de tous les inventaires. */
+  async getAllIds(): Promise<string[]> {
+    return (await this.inventoryRepo.findAllIds()).map(i => i.id);
+  }
   async getAll(): Promise<Inventory[]> {
-    return this.inventoryRepo.findAll({ select: { id: true } });
+    return this.inventoryRepo.findAll();
   }
 
   /**

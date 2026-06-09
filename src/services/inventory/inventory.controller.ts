@@ -15,7 +15,7 @@ export class InventoryController {
 
   /** Retourne la liste complète des inventaires. */
   async getInventoriesList(_req: FastifyRequest, reply: FastifyReply) {
-    const inventories = await this.inventoryService.getAll();
+    const inventories = await this.inventoryService.getAllIds();
     return reply.send(inventories);
   }
 

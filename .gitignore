@@ -4,9 +4,6 @@ dist/
 .env.local
 *.env
 
-# Prisma
-prisma/generated/
-
 # Logs
 *.log
 logs/

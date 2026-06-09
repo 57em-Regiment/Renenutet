@@ -1,5 +1,3 @@
-import type { Stock } from '@/generated/client';
-import { StockGetPayload } from '@/generated/models';
 import { krangApi } from '@/lib/api-client';
 import { AppError } from '@57eme-regiment/nabu-errors';
 import {
@@ -8,7 +6,7 @@ import {
   UpdateStock,
 } from '@57eme-regiment/renenutet-api-contract/schemas/stock.schema';
 import { injectable } from 'tsyringe';
-import { StockRepository } from './stock.repository';
+import { type Stock, type StockWithProductionRequests, StockRepository } from './stock.repository';
 
 /** Service métier pour la gestion des stocks. */
 @injectable()
@@ -46,7 +44,7 @@ export class StockService {
   }
 
   private async enrichWithItems(
-    stocks: StockGetPayload<{ include: { productionRequest: true } }>[],
+    stocks: StockWithProductionRequests[],
   ): Promise<StockDetails[]> {
     const itemResponse = await krangApi.item.getAll();
     if (itemResponse.status !== 200)
@@ -60,7 +58,7 @@ export class StockService {
           ...stock,
           minimumQuantity: stock.minimumQuantity,
           item: { ...itemsById.get(stock.itemId) },
-          productionRequest: stock.productionRequest,
+          productionRequest: stock.productionRequests,
         }) satisfies StockDetails,
     );
   }

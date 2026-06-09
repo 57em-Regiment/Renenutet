@@ -1,22 +1,20 @@
-import type { createLocationRef, locationRef } from '@57eme-regiment/renenutet-api-contract';
+import { refLocation } from '@/drizzle/schema';
 import { Database } from '@/infrastructure/database';
+import type { createLocationRef, locationRef } from '@57eme-regiment/renenutet-api-contract';
 import { injectable } from 'tsyringe';
 
-/** Contrat d'accès aux données pour les références de localisation. */
+/** Accès aux données de la table `ref_location`. */
 @injectable()
 export class LocationRefRepository {
   constructor(private readonly db: Database) {}
 
-  /** Insère plusieurs références et retourne les enregistrements créés. */
+  /** Insère plusieurs références de localisation en lot et retourne les enregistrements créés. */
   async createMany(data: createLocationRef[]): Promise<locationRef[]> {
-    await this.db.context.ref_location.createMany({ data });
-    return this.db.context.ref_location.findMany({
-      where: { id: { in: data.map((d) => d.id) } },
-    });
+    return this.db.context.insert(refLocation).values(data).returning();
   }
 
   /** Supprime toutes les références de localisation. */
   async deleteAll(): Promise<void> {
-    await this.db.context.ref_location.deleteMany({});
+    await this.db.context.delete(refLocation);
   }
 }
