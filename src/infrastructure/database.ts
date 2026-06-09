@@ -1,6 +1,5 @@
 import * as schema from '@/drizzle/schema';
 import { drizzle } from 'drizzle-orm/postgres-js';
-import { migrate } from 'drizzle-orm/postgres-js/migrator';
 import postgres from 'postgres';
 import { injectable } from 'tsyringe';
 
@@ -16,9 +15,7 @@ export class Database {
     this.context = drizzle(this.client, { schema });
   }
 
-  async connect(): Promise<void> {
-    await migrate(this.context as any, { migrationsFolder: 'src/drizzle' });
-  }
+  async connect(): Promise<void> {}
 
   async disconnect(): Promise<void> {
     await this.client.end();

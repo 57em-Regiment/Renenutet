@@ -5,6 +5,7 @@ import type {
   Inventory,
   InventoryCode,
   InventoryDetails,
+  InventoryParams,
   UpdateInventory,
   UpdateInventoryCode,
 } from '@57eme-regiment/renenutet-api-contract';
@@ -21,8 +22,8 @@ export class InventoryService {
   ) {}
 
   /** Retourne tous les id de tous les inventaires. */
-  async getAllIds(): Promise<string[]> {
-    return (await this.inventoryRepo.findAllIds()).map(i => i.id);
+  async getAllIds(): Promise<InventoryParams[]> {
+    return this.inventoryRepo.findAllIds();
   }
   async getAll(): Promise<Inventory[]> {
     return this.inventoryRepo.findAll();

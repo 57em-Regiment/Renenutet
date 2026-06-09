@@ -18,7 +18,7 @@ export const inventory = pgTable(
     name: text().notNull(),
     accessCode: varchar({ length: 6 }),
     locationId: uuid().notNull(),
-    ownerId: uuid(),
+    ownerId: text(),
     createdAt: timestamp({ precision: 3, mode: 'date' }).defaultNow().notNull(),
     updatedAt: timestamp({ precision: 3, mode: 'date' }).defaultNow().notNull(), //La maj auto de ce champ est géré via une function et un trigger en DB. Lors de la maj d'un champ de la ligne + Lors d ela maj d'un stock lié
   },

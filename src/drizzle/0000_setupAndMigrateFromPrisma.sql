@@ -4,9 +4,9 @@ CREATE TABLE "Inventory" (
 	"name" text NOT NULL,
 	"accessCode" varchar(6),
 	"locationId" uuid NOT NULL,
-	"ownerId" uuid,
-	"createdAt" timestamp(3) DEFAULT now() NOT NULL,
-	"updatedAt" timestamp(3) NOT NULL
+	"ownerId" text,
+	"createdAt" timestamp (3) DEFAULT now() NOT NULL,
+	"updatedAt" timestamp (3) DEFAULT now() NOT NULL
 );
 --> statement-breakpoint
 CREATE TABLE "ProductionRequest" (
@@ -14,8 +14,8 @@ CREATE TABLE "ProductionRequest" (
 	"itemId" uuid NOT NULL,
 	"inventoryId" uuid,
 	"quantity" integer NOT NULL,
-	"createdAt" timestamp(3) DEFAULT now() NOT NULL,
-	"updatedAt" timestamp(3) NOT NULL
+	"createdAt" timestamp (3) DEFAULT now() NOT NULL,
+	"updatedAt" timestamp (3) DEFAULT now() NOT NULL
 );
 --> statement-breakpoint
 CREATE TABLE "ref_item" (
@@ -31,7 +31,7 @@ CREATE TABLE "Stock" (
 	"inventoryId" uuid NOT NULL,
 	"quantity" integer DEFAULT 0 NOT NULL,
 	"minimumQuantity" integer,
-	"updatedAt" timestamp(3) NOT NULL,
+	"updatedAt" timestamp (3) DEFAULT now() NOT NULL,
 	CONSTRAINT "Stock_pkey" PRIMARY KEY("itemId","inventoryId")
 );
 --> statement-breakpoint
