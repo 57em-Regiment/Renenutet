@@ -1,35 +1,23 @@
 import { inventory } from '@/drizzle/schema';
+import { InventoryInsert, InventorySelect, InventoryUpdate } from '@/drizzle/schema/zod';
 import { Database } from '@/infrastructure/database';
-import type {
-  CreateInventory,
-  Inventory,
-  InventoryCode,
-  UpdateInventory,
-  UpdateInventoryCode,
-} from '@57eme-regiment/renenutet-api-contract';
+import type { CreateInventory, UpdateInventoryCode } from '@57eme-regiment/renenutet-api-contract';
 import { eq } from 'drizzle-orm';
 import { injectable } from 'tsyringe';
 
-/** Accès aux données de la table `Inventory`. */
 @injectable()
 export class InventoryRepository {
   constructor(private readonly db: Database) {}
 
-  /** Retourne tous les inventaires avec l'ensemble de leurs champs. */
-  findAll(): Promise<Inventory[]> {
+  findAll(): Promise<InventorySelect[]> {
     return this.db.context.select().from(inventory);
   }
 
-  /** Retourne uniquement les identifiants de tous les inventaires. */
   findAllIds(): Promise<{ id: string }[]> {
     return this.db.context.select({ id: inventory.id }).from(inventory);
   }
 
-  /**
-   * Retourne un inventaire par son identifiant.
-   * @throws {Error} si aucun inventaire ne correspond à l'id.
-   */
-  async findByIdOrThrow(id: string): Promise<Inventory> {
+  async findByIdOrThrow(id: string): Promise<InventorySelect> {
     const result = await this.db.context
       .select()
       .from(inventory)
@@ -39,13 +27,7 @@ export class InventoryRepository {
     return result[0];
   }
 
-  /**
-   * Retourne le code d'accès d'un inventaire.
-   * @returns `undefined` si l'inventaire est introuvable, `{ code: null }` s'il n'a pas de code.
-   */
-  async getInventoryCodeAsync(
-    id: string,
-  ): Promise<InventoryCode | undefined | null> {
+  async getInventoryCodeAsync(id: string): Promise<{ code: string | null } | undefined> {
     const result = await this.db.context
       .select()
       .from(inventory)
@@ -55,11 +37,7 @@ export class InventoryRepository {
     return { code: result[0].accessCode ?? null };
   }
 
-  /** Met à jour le code d'accès d'un inventaire et retourne l'enregistrement mis à jour. */
-  async updateCode(
-    id: string,
-    { code }: UpdateInventoryCode,
-  ): Promise<Inventory> {
+  async updateCode(id: string, { code }: UpdateInventoryCode): Promise<InventorySelect> {
     const result = await this.db.context
       .update(inventory)
       .set({ accessCode: code })
@@ -68,17 +46,15 @@ export class InventoryRepository {
     return result[0];
   }
 
-  /** Insère un nouvel inventaire et retourne l'enregistrement créé. */
-  async create(data: CreateInventory): Promise<Inventory> {
+  async create(data: CreateInventory): Promise<InventorySelect> {
     const result = await this.db.context
       .insert(inventory)
-      .values(data as typeof inventory.$inferInsert)
+      .values(data as InventoryInsert)
       .returning();
     return result[0];
   }
 
-  /** Met à jour les champs d'un inventaire et retourne l'enregistrement mis à jour. */
-  async update(id: string, data: UpdateInventory): Promise<Inventory> {
+  async update(id: string, data: InventoryUpdate): Promise<InventorySelect> {
     const result = await this.db.context
       .update(inventory)
       .set(data)
@@ -87,7 +63,6 @@ export class InventoryRepository {
     return result[0];
   }
 
-  /** Supprime un inventaire par son identifiant. */
   async delete(id: string): Promise<void> {
     await this.db.context.delete(inventory).where(eq(inventory.id, id));
   }

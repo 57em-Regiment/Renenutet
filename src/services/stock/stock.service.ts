@@ -6,7 +6,8 @@ import {
   UpdateStock,
 } from '@57eme-regiment/renenutet-api-contract/schemas/stock.schema';
 import { injectable } from 'tsyringe';
-import { type Stock, type StockWithProductionRequests, StockRepository } from './stock.repository';
+import { type StockSelect as Stock, type StockWithProductionRequests } from '@/drizzle/schema/zod';
+import { StockRepository } from './stock.repository';
 
 /** Service métier pour la gestion des stocks. */
 @injectable()

@@ -29,6 +29,7 @@
     "@scalar/fastify-api-reference": "^1.57.5",
     "@ts-rest/core": "3.53.0-rc.1",
     "drizzle-orm": "^0.45.2",
+    "drizzle-zod": "^0.8.3",
     "fastify": "^5.8.5",
     "postgres": "^3.4.9",
     "reflect-metadata": "^0.2.2",
