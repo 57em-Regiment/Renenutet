@@ -1,4 +1,8 @@
-import { createInsertSchema, createSelectSchema, createUpdateSchema } from 'drizzle-zod';
+import {
+  createInsertSchema,
+  createSelectSchema,
+  createUpdateSchema,
+} from 'drizzle-zod';
 import { inventory } from './inventory';
 import { productionRequest } from './productionRequest';
 import { refItem } from './ref_item';
@@ -25,9 +29,12 @@ export const refItemInsertSchema = createInsertSchema(refItem);
 export const refLocationSelectSchema = createSelectSchema(refLocation);
 export const refLocationInsertSchema = createInsertSchema(refLocation);
 
-export const productionRequestSelectSchema = createSelectSchema(productionRequest);
-export const productionRequestInsertSchema = createInsertSchema(productionRequest);
-export const productionRequestUpdateSchema = createUpdateSchema(productionRequest);
+export const productionRequestSelectSchema =
+  createSelectSchema(productionRequest);
+export const productionRequestInsertSchema =
+  createInsertSchema(productionRequest);
+export const productionRequestUpdateSchema =
+  createUpdateSchema(productionRequest);
 
 // Types TypeScript — inférés directement depuis Drizzle (sans branding Zod v4)
 export type InventorySelect = typeof inventory.$inferSelect;
@@ -54,3 +61,6 @@ export type RefLocationInsert = typeof refLocation.$inferInsert;
 export type ProductionRequestSelect = typeof productionRequest.$inferSelect;
 export type ProductionRequestInsert = typeof productionRequest.$inferInsert;
 export type ProductionRequestUpdate = Partial<ProductionRequestInsert>;
+export type ProductionRequestWithStock = ProductionRequestSelect & {
+  stocks: StockSelect[];
+};

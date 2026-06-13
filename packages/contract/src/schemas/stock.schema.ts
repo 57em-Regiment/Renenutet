@@ -1,5 +1,6 @@
 import { ItemSchema } from '@57eme-regiment/krang-api-contract';
 import { z } from 'zod';
+import { productionRequestSchema } from './productionRequests.schema';
 
 export const stockSchema = z.object({
   quantity: z.number().int(),
@@ -9,16 +10,6 @@ export const stockSchema = z.object({
   minimumQuantity: z.number().nullable(),
 });
 export type StockSchema = z.infer<typeof stockSchema>;
-
-export const productionRequestSchema = z.object({
-  id: z.uuid(),
-  itemId: z.uuid(),
-  inventoryId: z.uuid().nullable().optional(),
-  quantity: z.number(),
-  createdAt: z.coerce.date(),
-  updatedAt: z.coerce.date(),
-});
-export type RroductionRequest = z.infer<typeof productionRequestSchema>;
 
 export const stockDetailsSchema = stockSchema.extend({
   item: ItemSchema.partial(),

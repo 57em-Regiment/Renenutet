@@ -2,7 +2,7 @@ import { inventory } from '@/drizzle/schema';
 import { InventoryInsert, InventorySelect, InventoryUpdate } from '@/drizzle/schema/zod';
 import { Database } from '@/infrastructure/database';
 import type { CreateInventory, UpdateInventoryCode } from '@57eme-regiment/renenutet-api-contract';
-import { eq } from 'drizzle-orm';
+import { eq, inArray } from 'drizzle-orm';
 import { injectable } from 'tsyringe';
 
 @injectable()
@@ -11,6 +11,11 @@ export class InventoryRepository {
 
   findAll(): Promise<InventorySelect[]> {
     return this.db.context.select().from(inventory);
+  }
+
+  findByIds(ids: string[]): Promise<InventorySelect[]> {
+    if (ids.length === 0) return Promise.resolve([]);
+    return this.db.context.select().from(inventory).where(inArray(inventory.id, ids));
   }
 
   findAllIds(): Promise<{ id: string }[]> {

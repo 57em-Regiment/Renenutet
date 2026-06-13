@@ -41,7 +41,10 @@ export class StockRepository {
   findByInventory(inventoryId: string): Promise<StockWithProductionRequests[]> {
     return this.db.context.query.stock.findMany({
       where: eq(stock.inventoryId, inventoryId),
-      with: { productionRequests: true },
+      with: {
+        productionRequests: {
+        where : eq(stock.inventoryId, inventoryId)
+      } },
     });
   }
 

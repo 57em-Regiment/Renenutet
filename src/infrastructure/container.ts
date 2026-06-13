@@ -7,6 +7,9 @@ import { ItemRefService } from '@/services/itemRef/itemRef.service';
 import { LocationRefController } from '@/services/locationRef/locationRef.controller';
 import { LocationRefRepository } from '@/services/locationRef/locationRef.repository';
 import { LocationRefService } from '@/services/locationRef/locationRef.service';
+import { ProductionRequestsController } from '@/services/productionRequests/productionRequests.controller';
+import { ProductionRequestsRepository } from '@/services/productionRequests/productionRequests.repository';
+import { ProductionRequestsService } from '@/services/productionRequests/productionRequests.service';
 import { StockController } from '@/services/stock/stock.controller';
 import { StockRepository } from '@/services/stock/stock.repository';
 import { StockService } from '@/services/stock/stock.service';
@@ -31,5 +34,9 @@ container.registerSingleton(ItemRefController);
 container.registerSingleton(LocationRefRepository);
 container.registerSingleton(LocationRefService);
 container.registerSingleton(LocationRefController);
+
+container.registerSingleton(ProductionRequestsRepository);
+container.registerSingleton(ProductionRequestsService);
+container.registerSingleton(ProductionRequestsController);
 
 export { container };
