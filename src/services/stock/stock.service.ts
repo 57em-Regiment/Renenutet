@@ -1,5 +1,7 @@
-import type { Stock } from '@/generated/client';
-import { StockGetPayload } from '@/generated/models';
+import {
+  type StockSelect as Stock,
+  type StockWithProductionRequests,
+} from '@/drizzle/schema/zod';
 import { krangApi } from '@/lib/api-client';
 import { AppError } from '@57eme-regiment/nabu-errors';
 import {
@@ -46,7 +48,8 @@ export class StockService {
   }
 
   private async enrichWithItems(
-    stocks: StockGetPayload<{ include: { productionRequest: true } }>[],
+    stocks: StockWithProductionRequests[],
+    inventoryId?: string,
   ): Promise<StockDetails[]> {
     const itemResponse = await krangApi.item.getAll();
     if (itemResponse.status !== 200)
@@ -60,7 +63,7 @@ export class StockService {
           ...stock,
           minimumQuantity: stock.minimumQuantity,
           item: { ...itemsById.get(stock.itemId) },
-          productionRequest: stock.productionRequest,
+          productionRequest: stock.productionRequests,
         }) satisfies StockDetails,
     );
   }

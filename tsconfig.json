@@ -11,6 +11,7 @@
     "emitDecoratorMetadata": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
+    "types": ["node"],
     "resolveJsonModule": true,
     "baseUrl": ".",
     "paths": {
@@ -19,11 +20,21 @@
         "packages/contract/src/index.ts"
       ],
       "@57eme-regiment/renenutet-api-contract/*": ["packages/contract/src/*"],
-      "@57eme-regiment/krang-api-contract": ["../Krang/API/packages/contract/src/index.ts"],
-      "@57eme-regiment/krang-api-contract/*": ["../Krang/API/packages/contract/src/*"],
-      "@57eme-regiment/auth-contracts": ["../wan-shi-tong/packages/auth-contracts/src/index.ts"],
-      "@57eme-regiment/auth-contracts/*": ["../wan-shi-tong/packages/auth-contracts/src/*"],
-      "@57eme-regiment/auth-server": ["../wan-shi-tong/packages/auth-server/src/index.ts"],
+      "@57eme-regiment/krang-api-contract": [
+        "../Krang/API/packages/contract/src/index.ts"
+      ],
+      "@57eme-regiment/krang-api-contract/*": [
+        "../Krang/API/packages/contract/src/*"
+      ],
+      "@57eme-regiment/auth-contracts": [
+        "../wan-shi-tong/packages/auth-contracts/src/index.ts"
+      ],
+      "@57eme-regiment/auth-contracts/*": [
+        "../wan-shi-tong/packages/auth-contracts/src/*"
+      ],
+      "@57eme-regiment/auth-server": [
+        "../wan-shi-tong/packages/auth-server/src/index.ts"
+      ],
       "@57eme-regiment/nabu-errors": ["nabu/packages/errors/src/index.ts"],
       "@57eme-regiment/nabu-fastify": ["nabu/packages/fastify/src/index.ts"],
       "@57eme-regiment/nabu-logger": ["nabu/packages/logger/src/index.ts"]

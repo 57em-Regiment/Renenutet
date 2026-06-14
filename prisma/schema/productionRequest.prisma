@@ -1,9 +1,0 @@
-model ProductionRequest {
-  id          String        @id @default(uuid())
-  itemId      String
-  inventoryId String?
-  stock       Stock?        @relation(fields: [itemId, inventoryId], references: [itemId, inventoryId], onDelete: Cascade)
-  quantity    Int
-  createdAt   DateTime      @default(now())
-  updatedAt   DateTime      @updatedAt
-}
