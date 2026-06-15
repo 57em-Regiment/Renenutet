@@ -9,6 +9,7 @@ import {
 } from '@fastify/type-provider-zod';
 import apiReference from '@scalar/fastify-api-reference';
 import Fastify from 'fastify';
+import qs from 'qs';
 import { logger } from './config/logger';
 import { inventoryRoutes } from './services/inventory/inventory.route';
 import { itemRefRoutes } from './services/itemRef/itemRef.route';
@@ -18,7 +19,10 @@ import { productionRequestsRoutes } from './services/productionRequests/producti
 import { stockRoutes } from './services/stock/stock.route';
 
 export function buildApp() {
-  const app = Fastify({ logger: { level: 'error' } });
+  const app = Fastify({
+    logger: { level: 'error' },
+    querystringParser: str => qs.parse(str),
+  });
 
   app.addHook('onRequest', (req, _reply, done) => {
     logger.info(
