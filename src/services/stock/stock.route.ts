@@ -20,4 +20,5 @@ export async function stockRoutes(app: FastifyInstance) {
   declareRoute(server, stockContract.getStock, ctrl.getByKey.bind(ctrl));
   declareRoute(server, stockContract.increment, ctrl.increment.bind(ctrl));
   declareRoute(server, stockContract.decrement, ctrl.decrement.bind(ctrl));
+  declareRoute(server, stockContract.updateMinimumQuantity, ctrl.updateMinimumQuantity.bind(ctrl));
 }

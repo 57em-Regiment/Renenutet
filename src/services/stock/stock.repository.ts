@@ -5,7 +5,7 @@ import {
   StockWithProductionRequests,
 } from '@/drizzle/schema/zod';
 import { Database } from '@/infrastructure/database';
-import type { UpdateStock } from '@57eme-regiment/renenutet-api-contract/schemas/stock.schema';
+import type { UpdateMinimumQuantity, UpdateStock } from '@57eme-regiment/renenutet-api-contract/schemas/stock.schema';
 import { and, eq, sql } from 'drizzle-orm';
 import { injectable } from 'tsyringe';
 
@@ -65,6 +65,15 @@ export class StockRepository {
     const result = await this.db.context
       .update(stock)
       .set({ quantity: sql`${stock.quantity} - ${data.quantity}` })
+      .where(and(eq(stock.itemId, itemId), eq(stock.inventoryId, inventoryId)))
+      .returning();
+    return result[0];
+  }
+
+  async updateMinimumQuantity(itemId: string, inventoryId: string, data: UpdateMinimumQuantity): Promise<StockSelect> {
+    const result = await this.db.context
+      .update(stock)
+      .set({ minimumQuantity: data.minimumQuantity })
       .where(and(eq(stock.itemId, itemId), eq(stock.inventoryId, inventoryId)))
       .returning();
     return result[0];

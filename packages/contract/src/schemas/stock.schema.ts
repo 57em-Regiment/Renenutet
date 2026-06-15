@@ -29,6 +29,11 @@ export const updateStockSchema = z.object({
 });
 export type UpdateStock = z.infer<typeof updateStockSchema>;
 
+export const updateMinimumQuantitySchema = z.object({
+  minimumQuantity: z.number().int().nonnegative().nullable(),
+});
+export type UpdateMinimumQuantity = z.infer<typeof updateMinimumQuantitySchema>;
+
 export const stockIdParamSchema = z.object({
   inventoryId: z.uuid(),
   itemId: z.uuid(),

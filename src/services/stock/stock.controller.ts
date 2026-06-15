@@ -2,6 +2,7 @@ import { StockService } from '@/services/stock/stock.service';
 import {
   CreateStock,
   StockIdParams,
+  UpdateMinimumQuantity,
   UpdateStock,
 } from '@57eme-regiment/renenutet-api-contract/schemas/stock.schema';
 import { FastifyReply, FastifyRequest } from 'fastify';
@@ -86,6 +87,18 @@ export class StockController {
     reply: FastifyReply,
   ) {
     const stock = await this.stockService.decrement(
+      req.params.itemId,
+      req.params.inventoryId,
+      req.body,
+    );
+    return reply.send(stock);
+  }
+
+  async updateMinimumQuantity(
+    req: FastifyRequest<{ Params: StockIdParams; Body: UpdateMinimumQuantity }>,
+    reply: FastifyReply,
+  ) {
+    const stock = await this.stockService.updateMinimumQuantity(
       req.params.itemId,
       req.params.inventoryId,
       req.body,

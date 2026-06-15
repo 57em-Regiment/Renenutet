@@ -7,6 +7,7 @@ import {
   stockIdParamSchema,
   stockInventoryParamSchema,
   stockSchema,
+  updateMinimumQuantitySchema,
   updateStockSchema,
 } from '../schemas/stock.schema';
 
@@ -99,6 +100,20 @@ export const stockContract = c.router(
       metadata: { tags: ['Stock'] },
       pathParams: stockIdParamSchema,
       body: updateStockSchema,
+      responses: {
+        200: stockSchema,
+        404: errorSchema,
+      },
+    }),
+    updateMinimumQuantity: c.mutation({
+      method: 'PATCH',
+      path: '/:inventoryId/:itemId/minimum-quantity',
+      summary: 'Update minimum quantity threshold',
+      description:
+        'Sets the minimum quantity threshold for a stock entry. Pass null to remove the threshold. Returns 404 if not found.',
+      metadata: { tags: ['Stock'] },
+      pathParams: stockIdParamSchema,
+      body: updateMinimumQuantitySchema,
       responses: {
         200: stockSchema,
         404: errorSchema,

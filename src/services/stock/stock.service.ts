@@ -7,6 +7,7 @@ import { AppError } from '@57eme-regiment/nabu-errors';
 import {
   CreateStock,
   StockDetails,
+  UpdateMinimumQuantity,
   UpdateStock,
 } from '@57eme-regiment/renenutet-api-contract/schemas/stock.schema';
 import { injectable } from 'tsyringe';
@@ -106,5 +107,14 @@ export class StockService {
   ): Promise<Stock> {
     await this.getByKey(itemId, inventoryId);
     return this.stockRepo.decrement(itemId, inventoryId, data);
+  }
+
+  async updateMinimumQuantity(
+    itemId: string,
+    inventoryId: string,
+    data: UpdateMinimumQuantity,
+  ): Promise<Stock> {
+    await this.getByKey(itemId, inventoryId);
+    return this.stockRepo.updateMinimumQuantity(itemId, inventoryId, data);
   }
 }
