@@ -9,14 +9,14 @@ importers:
   .:
     dependencies:
       '@57eme-regiment/auth-contracts':
-        specifier: link:../wan-shi-tong/packages/auth-contracts
-        version: link:../wan-shi-tong/packages/auth-contracts
+        specifier: ^1.11.0
+        version: 1.11.0(@ts-rest/core@3.53.0-rc.1(@types/node@22.19.19))(zod@4.4.3)
       '@57eme-regiment/auth-server':
-        specifier: link:../wan-shi-tong/packages/auth-server
-        version: link:../wan-shi-tong/packages/auth-server
+        specifier: ^1.6.0
+        version: 1.6.0(@types/node@22.19.19)(fastify@5.8.5)
       '@57eme-regiment/krang-api-contract':
-        specifier: link:../Krang/API/packages/contract
-        version: link:../Krang/API/packages/contract
+        specifier: ^0.11.0
+        version: 0.11.0(@types/node@22.19.19)(zod@4.4.3)
       '@57eme-regiment/nabu-errors':
         specifier: link:../Renenutet/nabu/packages/errors
         version: link:nabu/packages/errors
@@ -111,6 +111,25 @@ importers:
         version: 5.9.3
 
 packages:
+
+  '@57eme-regiment/auth-contracts@1.11.0':
+    resolution: {integrity: sha512-iYtAYpjjdMmsdxvFT8WOhV9W8MqEB/GT7HVjgxEOVj7KJLfhTVGUCOmHFqhQcxYR/NJOOoJihFCD3r8I5UcbsA==, tarball: https://npm.pkg.github.com/download/@57eme-regiment/auth-contracts/1.11.0/f7cbc4aed3128a421ffc3d1222dbca75ce254be8}
+    peerDependencies:
+      '@ts-rest/core': '>=3.50.0'
+      zod: '>=3'
+
+  '@57eme-regiment/auth-contracts@1.6.0':
+    resolution: {integrity: sha512-tARb7TFCJYucRufB0iVKnebQT1DAbYnuWfaacgOhlhG8btJp4RekYprcqQCrt1nN1RhX56+bcHORFWu5IGqJ9A==, tarball: https://npm.pkg.github.com/download/@57eme-regiment/auth-contracts/1.6.0/8bfe870f1f87eec5ad8a9cc9f29090945496c69c}
+
+  '@57eme-regiment/auth-server@1.6.0':
+    resolution: {integrity: sha512-mQVY0RRBFe6szcGzBK4eSlvSeJPS6AKNIQtuVla66g9e7sxRTBPjWbWg6MEBarSdahgQhX30cKf72QKlIJ60Yw==, tarball: https://npm.pkg.github.com/download/@57eme-regiment/auth-server/1.6.0/20521bfcfa98785d156fc87558768b472e0587c0}
+    peerDependencies:
+      fastify: '>=5'
+
+  '@57eme-regiment/krang-api-contract@0.11.0':
+    resolution: {integrity: sha512-q/qj7pedPL7IG0QJTesSZBZsWmY7oscV97ZK3xFjq0U8xuYVoTGpHjz1n7X9iCkhidReOVP8FSrAKpEBP/2rTQ==, tarball: https://npm.pkg.github.com/download/@57eme-Regiment/krang-api-contract/0.11.0/00c7853e20d6661cbba24caab4daf4ff21477d50}
+    peerDependencies:
+      zod: '>=3'
 
   '@cspotcode/source-map-support@0.8.1':
     resolution: {integrity: sha512-IchNf6dN4tHoMFIn/7OE8LWZ19Y6q/67Bmf6vnGREv8RSbBVb9LPJxEcnwrcwX6ixSvaiGoomAUvu4YSxXrVgw==}
@@ -1357,6 +1376,32 @@ packages:
     resolution: {integrity: sha512-ytENFjIJFl2UwYglde2jchW2Hwm4GJFLDiSXWdTrJQBIN9Fcyp7n4DhxJEiWNAJMV1/BqWfW/kkg71UDcHJyTQ==}
 
 snapshots:
+
+  '@57eme-regiment/auth-contracts@1.11.0(@ts-rest/core@3.53.0-rc.1(@types/node@22.19.19))(zod@4.4.3)':
+    dependencies:
+      '@ts-rest/core': 3.53.0-rc.1(@types/node@22.19.19)
+      zod: 4.4.3
+
+  '@57eme-regiment/auth-contracts@1.6.0(@types/node@22.19.19)':
+    dependencies:
+      '@ts-rest/core': 3.53.0-rc.1(@types/node@22.19.19)
+      zod: 4.4.3
+    transitivePeerDependencies:
+      - '@types/node'
+
+  '@57eme-regiment/auth-server@1.6.0(@types/node@22.19.19)(fastify@5.8.5)':
+    dependencies:
+      '@57eme-regiment/auth-contracts': 1.6.0(@types/node@22.19.19)
+      fastify: 5.8.5
+    transitivePeerDependencies:
+      - '@types/node'
+
+  '@57eme-regiment/krang-api-contract@0.11.0(@types/node@22.19.19)(zod@4.4.3)':
+    dependencies:
+      '@ts-rest/core': 3.53.0-rc.1(@types/node@22.19.19)
+      zod: 4.4.3
+    transitivePeerDependencies:
+      - '@types/node'
 
   '@cspotcode/source-map-support@0.8.1':
     dependencies:
