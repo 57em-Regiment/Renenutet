@@ -26,6 +26,8 @@ jobs:
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GH_PACKAGES_TOKEN }}
 
       - name: Build contract
         run: pnpm --filter @57eme-regiment/renenutet-api-contract build
