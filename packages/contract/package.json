@@ -16,13 +16,13 @@
     "build": "tsc --project tsconfig.json",
     "dev": "tsc --project tsconfig.json --watch"
   },
-  "dependencies": {
-    "@ts-rest/core": "3.53.0-rc.1"
-  },
+  "dependencies": {},
   "peerDependencies": {
+    "@ts-rest/core": ">=3.50.0",
     "zod": ">=3"
   },
   "devDependencies": {
+    "@ts-rest/core": "3.53.0-rc.1",
     "typescript": "^6.0.0"
   }
 }

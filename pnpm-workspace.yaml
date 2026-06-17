@@ -5,3 +5,4 @@ allowBuilds:
   prisma: true
 packages:
   - 'packages/*'
+  - 'nabu/packages/*'
