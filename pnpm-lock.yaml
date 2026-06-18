@@ -4,13 +4,16 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+overrides:
+  '@ts-rest/core': 3.53.0-rc.1
+
 importers:
 
   .:
     dependencies:
       '@57eme-regiment/auth-contracts':
-        specifier: ^1.11.0
-        version: 1.11.0(@ts-rest/core@3.53.0-rc.1(@types/node@22.19.19))(zod@4.4.3)
+        specifier: ^1.13.0
+        version: 1.13.0(@ts-rest/core@3.53.0-rc.1(@types/node@22.19.19))(zod@4.4.3)
       '@57eme-regiment/auth-server':
         specifier: ^1.6.0
         version: 1.6.0(@types/node@22.19.19)(fastify@5.8.5)
@@ -240,10 +243,10 @@ importers:
 
 packages:
 
-  '@57eme-regiment/auth-contracts@1.11.0':
-    resolution: {integrity: sha512-iYtAYpjjdMmsdxvFT8WOhV9W8MqEB/GT7HVjgxEOVj7KJLfhTVGUCOmHFqhQcxYR/NJOOoJihFCD3r8I5UcbsA==, tarball: https://npm.pkg.github.com/download/@57eme-regiment/auth-contracts/1.11.0/f7cbc4aed3128a421ffc3d1222dbca75ce254be8}
+  '@57eme-regiment/auth-contracts@1.13.0':
+    resolution: {integrity: sha512-dkKViTQb7W4t5hd4eS88sv+iq3HKikOdn1JlMHAiv/+QZ5cpwTxxA1zdcCHphw0ndCKSdBufU9EerkBoV44kwQ==, tarball: https://npm.pkg.github.com/download/@57eme-regiment/auth-contracts/1.13.0/f17365abfea80f81900b160da879bf9a6109ca33}
     peerDependencies:
-      '@ts-rest/core': '>=3.50.0'
+      '@ts-rest/core': 3.53.0-rc.1
       zod: '>=3'
 
   '@57eme-regiment/auth-contracts@1.6.0':
@@ -1649,7 +1652,7 @@ packages:
 
 snapshots:
 
-  '@57eme-regiment/auth-contracts@1.11.0(@ts-rest/core@3.53.0-rc.1(@types/node@22.19.19))(zod@4.4.3)':
+  '@57eme-regiment/auth-contracts@1.13.0(@ts-rest/core@3.53.0-rc.1(@types/node@22.19.19))(zod@4.4.3)':
     dependencies:
       '@ts-rest/core': 3.53.0-rc.1(@types/node@22.19.19)
       zod: 4.4.3
