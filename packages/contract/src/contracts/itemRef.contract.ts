@@ -1,3 +1,4 @@
+import { PERMISSIONS } from '@57eme-regiment/auth-contracts';
 import { initContract } from '@ts-rest/core';
 import { z } from 'zod';
 import { createItemRefSchema, itemRefSchema } from '../schemas/itemRef.schema';
@@ -12,7 +13,10 @@ export const itemRefContract = c.router(
       summary: 'Seed item references',
       description:
         'Bulk-creates item reference entries by UUID. Used to seed the item catalogue from Krang before creating stocks.',
-      metadata: { tags: ['Item References'] },
+      metadata: {
+        tags: ['Item References'],
+        permission: PERMISSIONS.RENENUTET_ITEMREF_CREATE,
+      },
       body: createItemRefSchema.array(),
       responses: { 201: itemRefSchema.array() },
     }),
@@ -22,7 +26,10 @@ export const itemRefContract = c.router(
       summary: 'Drop all item references',
       description:
         'Deletes all item reference entries. Intended for reseeding — use with caution as it will break existing stocks that reference these items.',
-      metadata: { tags: ['Item References'] },
+      metadata: {
+        tags: ['Item References'],
+        permission: PERMISSIONS.RENENUTET_ITEMREF_DROP,
+      },
       body: c.noBody(),
       responses: {
         204: z.null(),

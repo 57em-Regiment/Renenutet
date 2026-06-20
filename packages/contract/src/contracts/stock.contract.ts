@@ -1,3 +1,4 @@
+import { PERMISSIONS } from '@57eme-regiment/auth-contracts';
 import { initContract } from '@ts-rest/core';
 import { z } from 'zod';
 import {
@@ -23,7 +24,10 @@ export const stockContract = c.router(
       summary: 'Add an item to a stock',
       description:
         'Creates a new stock entry for a given item in an inventory. Returns 409 if the item is already tracked in that inventory.',
-      metadata: { tags: ['Stock'] },
+      metadata: {
+        tags: ['Stock'],
+        permission: PERMISSIONS.RENENUTET_STOCKS_CREATE,
+      },
       body: createStockSchema,
       responses: {
         201: stockSchema,
@@ -35,7 +39,10 @@ export const stockContract = c.router(
       path: '/',
       summary: 'List all stocks',
       description: 'Returns every stock entry across all inventories.',
-      metadata: { tags: ['Stock'] },
+      metadata: {
+        tags: ['Stock'],
+        permission: PERMISSIONS.RENENUTET_STOCKS_READ,
+      },
       responses: { 200: z.array(stockDetailsSchema) },
     }),
     getByInventory: c.query({
@@ -44,7 +51,10 @@ export const stockContract = c.router(
       summary: 'List stocks for an inventory',
       description:
         'Returns all stock entries belonging to the given inventory. Returns 404 if the inventory does not exist.',
-      metadata: { tags: ['Stock'] },
+      metadata: {
+        tags: ['Stock'],
+        permission: PERMISSIONS.RENENUTET_STOCKS_READ,
+      },
       pathParams: stockInventoryParamSchema,
       responses: {
         200: z.array(stockDetailsSchema),
@@ -57,7 +67,10 @@ export const stockContract = c.router(
       summary: 'List stocks for an item',
       description:
         'Returns all stock entries for a given item across every inventory. Returns 404 if the item does not exist.',
-      metadata: { tags: ['Stock'] },
+      metadata: {
+        tags: ['Stock'],
+        permission: PERMISSIONS.RENENUTET_STOCKS_READ,
+      },
       pathParams: stockByItemsParamSchema,
       responses: {
         200: z.array(stockSchema),
@@ -70,7 +83,10 @@ export const stockContract = c.router(
       summary: 'Get a specific stock entry',
       description:
         'Returns the exact stock entry identified by the (inventoryId, itemId) composite key. Returns 404 if not found.',
-      metadata: { tags: ['Stock'] },
+      metadata: {
+        tags: ['Stock'],
+        permission: PERMISSIONS.RENENUTET_STOCKS_READ,
+      },
       pathParams: stockIdParamSchema,
       responses: {
         200: stockSchema,
@@ -83,7 +99,10 @@ export const stockContract = c.router(
       summary: 'Increment a stock quantity',
       description:
         'Increment the quantity of a stock entry identified by its composite key. Returns 404 if not found.',
-      metadata: { tags: ['Stock'] },
+      metadata: {
+        tags: ['Stock'],
+        permission: PERMISSIONS.RENENUTET_STOCKS_INCREMENT,
+      },
       pathParams: stockIdParamSchema,
       body: updateStockSchema,
       responses: {
@@ -97,7 +116,10 @@ export const stockContract = c.router(
       summary: 'Decrement a stock quantity',
       description:
         'Decrement the quantity of a stock entry identified by its composite key. Returns 404 if not found.',
-      metadata: { tags: ['Stock'] },
+      metadata: {
+        tags: ['Stock'],
+        permission: PERMISSIONS.RENENUTET_STOCKS_DECREMENT,
+      },
       pathParams: stockIdParamSchema,
       body: updateStockSchema,
       responses: {
@@ -111,7 +133,10 @@ export const stockContract = c.router(
       summary: 'Update minimum quantity threshold',
       description:
         'Sets the minimum quantity threshold for a stock entry. Pass null to remove the threshold. Returns 404 if not found.',
-      metadata: { tags: ['Stock'] },
+      metadata: {
+        tags: ['Stock'],
+        permission: PERMISSIONS.RENENUTET_STOCKS_UPDATEMIN,
+      },
       pathParams: stockIdParamSchema,
       body: updateMinimumQuantitySchema,
       responses: {

@@ -1,3 +1,4 @@
+import { PERMISSIONS } from '@57eme-regiment/auth-contracts';
 import { initContract } from '@ts-rest/core';
 import { z } from 'zod';
 import {
@@ -19,7 +20,10 @@ export const inventoryContract = c.router(
       path: '/ids',
       summary: 'List all inventories id',
       description: 'Returns the complete list of inventories id',
-      metadata: { tags: ['Inventory'] },
+      metadata: {
+        tags: ['Inventory'],
+        permission: PERMISSIONS.RENENUTET_INVENTORIES_READ,
+      },
       responses: { 200: z.array(inventoryParamsSchema) },
     }),
     getAll: c.query({
@@ -28,7 +32,10 @@ export const inventoryContract = c.router(
       summary: 'List all inventories',
       description:
         'Returns the complete list of inventories regardless of owner or location.',
-      metadata: { tags: ['Inventory'] },
+      metadata: {
+        tags: ['Inventory'],
+        permission: PERMISSIONS.RENENUTET_INVENTORIES_READ,
+      },
       responses: { 200: z.array(InventorySchema) },
     }),
     getInventoryDetails: c.query({
@@ -37,7 +44,10 @@ export const inventoryContract = c.router(
       summary: 'Get an inventory by ID',
       description:
         'Returns a single inventory by its UUID. Returns 404 if not found.',
-      metadata: { tags: ['Inventory'] },
+      metadata: {
+        tags: ['Inventory'],
+        permission: PERMISSIONS.RENENUTET_INVENTORIES_READ,
+      },
       pathParams: inventoryParamsSchema,
       responses: {
         200: InventoryDetailsSchema,
@@ -50,7 +60,10 @@ export const inventoryContract = c.router(
       summary: 'Get an inventory code',
       description:
         'Returns a code inventory with inventory UUID. Returns 404 if not found.',
-      metadata: { tags: ['Inventory'] },
+      metadata: {
+        tags: ['Inventory'],
+        permission: PERMISSIONS.RENENUTET_INVENTORIES_READ,
+      },
       pathParams: inventoryParamsSchema,
       responses: {
         200: InventoryCodeSchema,
@@ -63,7 +76,10 @@ export const inventoryContract = c.router(
       summary: 'Update an inventory code',
       description:
         'Updates the access code of an existing inventory. Pass `null` to remove it. Returns 404 if not found.',
-      metadata: { tags: ['Inventory'] },
+      metadata: {
+        tags: ['Inventory'],
+        permission: PERMISSIONS.RENENUTET_INVENTORIES_UPDATE,
+      },
       pathParams: inventoryParamsSchema,
       body: updateInventoryCodeSchema,
       responses: {
@@ -77,7 +93,10 @@ export const inventoryContract = c.router(
       summary: 'Create a new inventory',
       description:
         'Creates a new inventory attached to a location and an owner. The access code is optional and used to restrict stock pickups.',
-      metadata: { tags: ['Inventory'] },
+      metadata: {
+        tags: ['Inventory'],
+        permission: PERMISSIONS.RENENUTET_INVENTORIES_CREATE,
+      },
       body: createInventorySchema,
       responses: { 201: InventorySchema },
     }),
@@ -87,7 +106,10 @@ export const inventoryContract = c.router(
       summary: 'Update an inventory',
       description:
         'Updates the name, access code, location or owner of an existing inventory. Returns 404 if not found.',
-      metadata: { tags: ['Inventory'] },
+      metadata: {
+        tags: ['Inventory'],
+        permission: PERMISSIONS.RENENUTET_INVENTORIES_UPDATE,
+      },
       pathParams: inventoryParamsSchema,
       body: updateInventorySchema,
       responses: {
@@ -101,7 +123,10 @@ export const inventoryContract = c.router(
       summary: 'Delete an inventory',
       description:
         'Permanently deletes an inventory and all its associated stocks. Returns 404 if not found.',
-      metadata: { tags: ['Inventory'] },
+      metadata: {
+        tags: ['Inventory'],
+        permission: PERMISSIONS.RENENUTET_INVENTORIES_READ,
+      },
       pathParams: inventoryParamsSchema,
       body: c.noBody(),
       responses: {
