@@ -1,5 +1,5 @@
 import { env } from '@/config/env';
-import { contract as nonAdminContract } from '@57eme-regiment/auth-contracts';
+import { contract as nonAdminContract } from '@57eme-regiment/auth-package';
 import { contract } from '@57eme-regiment/krang-api-contract';
 import { initClient } from '@ts-rest/core';
 
